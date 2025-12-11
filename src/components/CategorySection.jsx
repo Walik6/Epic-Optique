@@ -1,45 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CategorySection.css';
-import hommesImg from '../assets/Lunettes_hommes.jpg';
-import femmesImg from '../assets/Lunettes_femmes.jpg';
-import enfantsImg from '../assets/Lunettes_enfants.jpg';
 
 const CategorySection = () => {
   const navigate = useNavigate();
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleCategoryClick = (categorie) => {
-    navigate(`/produits/${categorie}`); // <-- ici on met :categorie
+  // Récupération de l'URL de l'API depuis la variable d'environnement
+  const API_URL = import.meta.env.VITE_API_URL;
+
+  useEffect(() => {
+    fetch(`${API_URL}/getCategories.php`)
+      .then(res => res.json())
+      .then(data => {
+        setCategories(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Erreur API catégories:", err);
+        setLoading(false);
+      });
+  }, [API_URL]);
+
+  const handleCategoryClick = (categorieId) => {
+    navigate(`/produits/${categorieId}`);
   };
+
+  if (loading) return <p>Chargement des catégories...</p>;
 
   return (
     <section className="categories">
-      <div
-        id="hommes"
-        className="category"
-        style={{ backgroundImage: `url(${hommesImg})` }}
-        onClick={() => handleCategoryClick('hommes')}
-      >
-        <span className="category-text">Hommes</span>
-      </div>
-
-      <div
-        id="femmes"
-        className="category"
-        style={{ backgroundImage: `url(${femmesImg})` }}
-        onClick={() => handleCategoryClick('femmes')}
-      >
-        <span className="category-text">Femmes</span>
-      </div>
-
-      <div
-        id="enfants"
-        className="category"
-        style={{ backgroundImage: `url(${enfantsImg})` }}
-        onClick={() => handleCategoryClick('enfants')}
-      >
-        <span className="category-text">Enfants</span>
-      </div>
+      {categories.map(cat => (
+        <div
+          key={cat.id}
+          className="category"
+          style={{ backgroundImage: `url(${API_URL}/uploads/${cat.image_url})` }}
+          onClick={() => handleCategoryClick(cat.id)}
+        >
+          <span className="category-text">{cat.nom}</span>
+        </div>
+      ))}
     </section>
   );
 };
