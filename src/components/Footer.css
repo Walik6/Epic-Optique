@@ -1,0 +1,74 @@
+.footer {
+  background-color: #000; /* noir */
+  color: #fff; /* texte blanc */
+  padding: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.footer-section h3, .footer-section h4 {
+  margin-bottom: 15px;
+  color: #fff; /* blanc */
+}
+
+.footer-section p, .footer-section a, .footer-section li {
+  color: #fff;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.footer-section p {
+  line-height: 1.5rem; /* pour espacer les lignes */
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 8px;
+}
+
+.footer-section ul li a:hover {
+  color: #ccc; /* léger gris au hover */
+}
+
+.socials {
+  margin-top: 10px;
+}
+
+.socials a {
+  margin-right: 15px;
+  color: #fff;
+  font-size: 1.1rem;
+  transition: color 0.3s;
+}
+
+.socials a:hover {
+  color: #ccc;
+}
+
+.footer-bottom {
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+  border-top: 1px solid #444;
+  padding-top: 20px;
+  font-size: 0.85rem;
+  color: #bbb;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    padding: 30px 20px;
+  }
+  .socials a {
+    margin-right: 10px;
+  }
+}

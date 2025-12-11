@@ -1,0 +1,74 @@
+.categories {
+  display: flex;
+  justify-content: space-around; /* gardent les 3 sur la même ligne */
+  padding: 80px 50px;
+  background-color: #f9f9f9;
+  gap: 30px; /* espace entre les cartes */
+  flex-wrap: wrap; /* pour que ça reste responsive */
+}
+
+.category {
+  flex: 0 0 28%; /* un peu moins large que 33%, pour 3 cartes sur la ligne */
+  height: 350px;  /* plus longue que précédemment */
+  background-size: cover; /* image prend toute la carte */
+  background-position: center;
+  border-radius: 15px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.category:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Overlay sombre pour texte lisible */
+.category::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 15px;
+  z-index: 1;
+}
+
+.category-text {
+  position: relative; /* au-dessus de l'overlay */
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  z-index: 2;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .category {
+    flex: 0 0 45%; /* 2 cartes sur la ligne sur tablette */
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .categories {
+    flex-direction: column; /* 1 carte par ligne sur mobile */
+    padding: 50px 20px;
+    gap: 20px;
+  }
+
+  .category {
+    width: 100%;
+    height: 250px;
+  }
+
+  .category-text {
+    font-size: 1.5rem;
+  }
+}

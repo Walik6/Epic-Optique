@@ -1,0 +1,44 @@
+.produits-page {
+  padding: 40px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.produits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.produit-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.produit-card:hover {
+  transform: translateY(-5px);
+}
+
+.produit-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.produit-card button {
+  margin-top: 10px;
+  padding: 8px 15px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.produit-card button:hover {
+  background-color: #333;
+}
