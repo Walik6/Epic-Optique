@@ -1,18 +1,57 @@
 <?php
-$conn = new mysqli("host", "user", "password", "database");
+header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
 
-$categorie = $_GET['categorie'] ?? '';
+require 'db.php';
 
-$sql = "SELECT * FROM produits";
-if($categorie) $sql .= " WHERE categorie='$categorie'";
+$categorie_id = $_GET['categorie'] ?? '';
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$search = $_GET['search'] ?? '';
+$filter = $_GET['filter'] ?? '';
+$limit = 12;
+$offset = ($page - 1) * $limit;
 
-$result = $conn->query($sql);
+try {
+    $sql = "SELECT * FROM produits WHERE 1=1";
+    $params = [];
 
-$produits = [];
-while($row = $result->fetch_assoc()) {
-    $produits[] = $row;
+    if ($categorie_id) {
+        $sql .= " AND categorie_id = ?";
+        $params[] = $categorie_id;
+    }
+
+    if ($search) {
+        $sql .= " AND nom LIKE ?";
+        $params[] = "%$search%";
+    }
+
+    if ($filter === 'prix_asc') $sql .= " ORDER BY prix ASC";
+    elseif ($filter === 'prix_desc') $sql .= " ORDER BY prix DESC";
+    else $sql .= " ORDER BY id ASC";
+
+    $sql .= " LIMIT ? OFFSET ?";
+    $params[] = $limit;
+    $params[] = $offset;
+
+    $stmt = $conn->prepare($sql);
+
+    foreach ($params as $i => $p) {
+        $stmt->bindValue($i + 1, $p, is_int($p) ? PDO::PARAM_INT : PDO::PARAM_STR);
+    }
+
+    $stmt->execute();
+    $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($produits as &$p) {
+        $p['image'] = "https://coral-termite-458611.hostingersite.com/Api" . $p['image'];
+    }
+
+    echo json_encode($produits);
+
+} catch (PDOException $e) {
+    http_response_code(500);
+    echo json_encode(["error" => $e->getMessage()]);
 }
-
-header('Content-Type: application/json');
-echo json_encode($produits);
 ?>

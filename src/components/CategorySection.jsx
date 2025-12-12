@@ -7,7 +7,6 @@ const CategorySection = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Récupération de l'URL de l'API depuis la variable d'environnement
   const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
@@ -35,7 +34,7 @@ const CategorySection = () => {
         <div
           key={cat.id}
           className="category"
-          style={{ backgroundImage: `url(${API_URL}/uploads/${cat.image_url})` }}
+          style={{ backgroundImage: `url(${API_URL}${cat.image_url || '/uploads/default.jpg'})` }}
           onClick={() => handleCategoryClick(cat.id)}
         >
           <span className="category-text">{cat.nom}</span>

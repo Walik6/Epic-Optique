@@ -16,16 +16,17 @@ const Header = () => {
     <header className="header">
       {/* Logo + texte */}
       <div className="logo-container">
-        <img src={logo} alt="Logo Epic Optique" className="logo-img" />
-        <span className="logo-text">Epic Optique</span>
+        <Link to="/" className="logo-link">
+          <img src={logo} alt="Logo Epic Optique" className="logo-img" />
+          <span className="logo-text">Epic Optique</span>
+        </Link>
       </div>
 
       {/* Navigation */}
       <nav className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
         <Link to="/">Accueil</Link>
-        <Link to="/produits/hommes">Hommes</Link>
-        <Link to="/produits/femmes">Femmes</Link>
-        <Link to="/produits/enfants">Enfants</Link>
+        <Link to="/nouveautes">Nouveautés</Link>
+        <Link to="/promotions">Promotions</Link>
         <Link to="/contact">Contact</Link>
       </nav>
 

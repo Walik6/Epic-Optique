@@ -1,74 +1,80 @@
 .footer {
-  background-color: #000; /* noir */
-  color: #fff; /* texte blanc */
-  padding: 50px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 30px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.footer-section h3, .footer-section h4 {
-  margin-bottom: 15px;
-  color: #fff; /* blanc */
-}
-
-.footer-section p, .footer-section a, .footer-section li {
+  background: #111;
   color: #fff;
-  font-size: 0.9rem;
+  padding: 30px 5%;
+  font-family: 'Arial', sans-serif;
+}
+
+.footer a {
+  color: #fff;
   text-decoration: none;
+  transition: color 0.3s;
 }
 
-.footer-section p {
-  line-height: 1.5rem; /* pour espacer les lignes */
+.footer a:hover {
+  color: #aaa;
 }
 
-.footer-section ul {
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-left, .footer-center, .footer-right {
+  flex: 1;
+  min-width: 200px;
+  margin-bottom: 20px;
+}
+
+.footer-left h3 {
+  margin-bottom: 10px;
+}
+
+.footer-center h4 {
+  margin-bottom: 10px;
+}
+
+.footer-center ul {
   list-style: none;
   padding: 0;
 }
 
-.footer-section ul li {
-  margin-bottom: 8px;
+.footer-center li {
+  margin-bottom: 5px;
+}
+.footer-center {
+  text-align: center;
+  margin-left: -20px; /* Ajuste cette valeur selon ton goût */
 }
 
-.footer-section ul li a:hover {
-  color: #ccc; /* léger gris au hover */
+.footer-right {
+  text-align: right;
 }
 
-.socials {
-  margin-top: 10px;
+.footer-phone {
+  margin-bottom: 10px;
+  font-size: 1rem;
 }
 
 .socials a {
-  margin-right: 15px;
-  color: #fff;
-  font-size: 1.1rem;
+  margin-left: 10px;
+  font-size: 1.5rem;
   transition: color 0.3s;
 }
 
 .socials a:hover {
-  color: #ccc;
+  color: #aaa;
 }
 
 .footer-bottom {
-  width: 100%;
   text-align: center;
-  margin-top: 30px;
-  border-top: 1px solid #444;
-  padding-top: 20px;
-  font-size: 0.85rem;
-  color: #bbb;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #ccc;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .footer {
-    flex-direction: column;
-    padding: 30px 20px;
-  }
-  .socials a {
-    margin-right: 10px;
-  }
+.footer-desc {
+  line-height: 1.5;
+  margin: 0;
 }

@@ -9,11 +9,14 @@ import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import DashboardAdmin from './pages/DashboardAdmin';
 import './App.css';
+import ScrollToTop from './scrollToTop';
+import ContactPage from './pages/ContactPage'
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
+      <ScrollToTop />
       <Routes>
         {/* Page d'accueil */}
         <Route
@@ -26,8 +29,14 @@ function App() {
           }
         />
 
+        {/* Page avec tous les produits */}
+        <Route path="/produits" element={<ProduitsPage />} />
+
         {/* Page produits par catégorie */}
-        <Route path="/produits/:categorie" element={<ProduitsPage />} />
+        <Route path="/produits/:categorieId" element={<ProduitsPage />} />
+
+        {/* Page de contact */}
+        <Route path="/contact" element={<ContactPage />} />
 
         {/* Panier */}
         <Route path="/cart" element={<CartPage />} />
