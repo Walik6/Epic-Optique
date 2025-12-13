@@ -23,7 +23,7 @@ const CategorySection = () => {
   }, [API_URL]);
 
   const handleCategoryClick = (categorieId) => {
-    navigate(`/produits/${categorieId}`);
+    navigate(`/produits/categorie/${categorieId}`); // ✅ CHANGEMENT ICI
   };
 
   if (loading) return <p>Chargement des catégories...</p>;

@@ -22,8 +22,8 @@ const Footer = () => {
           <h4>Liens rapides</h4>
           <ul>
             <li><a href="/">Accueil</a></li>
-            <li><a href="#nouveautes">Nouveautés</a></li>
-            <li><a href="#promotions">Promotions</a></li>
+            <li><a href="/nouveautes">Nouveautés</a></li>
+            <li><a href="/promotions">Promotions</a></li>
             <li><a href="/contact">Contact</a></li>
           </ul>
         </div>

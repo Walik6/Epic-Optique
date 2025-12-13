@@ -1,0 +1,164 @@
+/* Overlay du mini-cart */
+.mini-cart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Conteneur du mini-cart */
+.mini-cart {
+  width: 360px;
+  max-width: 90%;
+  background: #fff;
+  color: #111;
+  padding: 20px;
+  height: 100%;
+  overflow-y: auto;
+  box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+  border-radius: 0 12px 12px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.mini-cart h2 {
+  margin: 0 0 20px 0;
+  font-size: 22px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+/* Liste des items */
+.mini-cart-items {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.mini-cart-item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  background: #f8f8f8;
+  padding: 10px;
+  border-radius: 8px;
+  align-items: center;
+}
+
+.mini-cart-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.mini-cart-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mini-cart-info h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111;
+}
+
+.mini-cart-info p {
+  margin: 0;
+  font-size: 13px;
+  color: #111;
+}
+
+/* Quantité */
+.mini-qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.mini-qty button {
+  background: #333;
+  border: none;
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.mini-qty button:hover {
+  background: #555;
+}
+
+.mini-qty span {
+  min-width: 20px;
+  text-align: center;
+  color: #111;
+  font-weight: 600;
+}
+
+/* Bouton supprimer */
+.remove-btn {
+  background: #ccc;
+  border: none;
+  color: #111;
+  cursor: pointer;
+  font-size: 12px;
+  margin-top: 5px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.remove-btn:hover {
+  background: #bbb;
+}
+
+/* Footer du mini-cart */
+.mini-cart-footer {
+  border-top: 1px solid #ccc;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mini-cart-footer h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111;
+}
+
+/* Boutons footer */
+.mini-cart-footer button {
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: #333; /* couleur sobre pour tous les boutons */
+  color: #fff;
+}
+
+.mini-cart-footer button:hover {
+  background: #555;
+  transform: translateY(-1px);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

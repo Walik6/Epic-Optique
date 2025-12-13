@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import './ProduitsPage.css';
+import { useCart } from '../context/CartContext';
 
 const ProduitsPage = () => {
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
+
   const { categorieId } = useParams();
   const [produits, setProduits] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,6 +14,7 @@ const ProduitsPage = () => {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('');
   const [titreCategorie, setTitreCategorie] = useState('Montures');
+  const [totalPages, setTotalPages] = useState(1);
 
   const API_URL = import.meta.env.VITE_API_URL;
 
@@ -23,11 +28,18 @@ const ProduitsPage = () => {
     const fetchProduits = async () => {
       setLoading(true);
       try {
-        let url = `${API_URL}/getProduits.php?page=${page}&search=${encodeURIComponent(search)}&filter=${filter}`;
+        let url = `${API_URL}/getProduits.php?page=${page}&limit=12&search=${encodeURIComponent(search)}&filter=${filter}`;
         if (categorieId) url += `&categorie=${categorieId}`;
         const res = await fetch(url);
         const data = await res.json();
-        setProduits(Array.isArray(data) ? data : []);
+
+        if (Array.isArray(data.produits)) {
+          setProduits(data.produits);
+          setTotalPages(data.totalPages || 1);
+        } else {
+          setProduits(Array.isArray(data) ? data : []);
+          setTotalPages(1);
+        }
 
         setTitreCategorie(
           categorieId && categoriesMap[categorieId]
@@ -36,6 +48,7 @@ const ProduitsPage = () => {
         );
       } catch (err) {
         setProduits([]);
+        setTotalPages(1);
       }
       setLoading(false);
     };
@@ -44,7 +57,7 @@ const ProduitsPage = () => {
   }, [categorieId, page, search, filter, API_URL]);
 
   const handlePrev = () => page > 1 && setPage(page - 1);
-  const handleNext = () => produits.length === 12 && setPage(page + 1);
+  const handleNext = () => page < totalPages && setPage(page + 1);
 
   return (
     <div className="produits-page">
@@ -78,22 +91,35 @@ const ProduitsPage = () => {
         <>
           <div className="produits-grid">
             {produits.map(prod => (
-              <div key={prod.id} className="produit-card">
+              <div
+                key={prod.id}
+                className="produit-card"
+                onClick={() => navigate(`/produit/${prod.id}`)}
+                style={{ cursor: 'pointer' }}
+              >
                 <div className="img-container">
                   <img src={prod.image} alt={prod.nom} className="produit-img" />
                 </div>
-                <h3 className="produit-nom">{prod.nom}</h3>
-                <p className="produit-prix">{prod.prix} DZD</p>
-                <button className="btn-panier">Ajouter au panier</button>
+
+                <div className="produit-info">
+                  <h3 className="produit-nom">{prod.nom}</h3>
+                  <p className="produit-prix">{prod.prix} DZD</p>
+                  <button
+                    className="btn-panier"
+                    onClick={(e) => { e.stopPropagation(); addToCart(prod); }}
+                  >
+                    Ajouter au panier
+                  </button>
+                </div>
               </div>
             ))}
           </div>
 
           {/* Pagination */}
           <div className="pagination">
-            <button onClick={handlePrev} disabled={page === 1}>Précédent</button>
-            <span>Page {page}</span>
-            <button onClick={handleNext} disabled={produits.length < 12}>Suivant</button>
+            <button onClick={handlePrev} disabled={page === 1}>← Précédent</button>
+            <span>Page {page} / {totalPages}</span>
+            <button onClick={handleNext} disabled={page >= totalPages}>Suivant →</button>
           </div>
         </>
       )}

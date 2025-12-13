@@ -1,15 +1,25 @@
-/* Reset de base */
+/* Reset global */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* Body et root */
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f5f5f5; /* fond uniforme */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Pour prendre toute la page */
-html, body, #root {
-  height: 100%;
+/* Centrer le contenu principal */
+.cart-page {
+  padding: 40px;
+  max-width: 1200px;
   width: 100%;
-  margin: 0;
-  padding: 0;
+  margin: 0 auto; /* centre horizontalement */
+  background: #fff;
+  box-sizing: border-box;
+  min-height: calc(100vh - 120px); /* laisse de la place pour footer */
 }

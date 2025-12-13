@@ -1,0 +1,267 @@
+/* ===== BASE ===== */
+body {
+  background: #f2f4f7;
+}
+
+.caisse-page {
+  padding: 25px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #111;
+}
+
+/* ===== TITRE / NOTIF ===== */
+.caisse-page h1 {
+  margin-bottom: 15px;
+}
+
+.notification {
+  background: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+/* ===== LAYOUT ===== */
+.caisse-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 25px;
+  align-items: start;
+}
+
+/* ===== ZONE PRODUITS ===== */
+.produits-zone {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* filtres */
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.filters input,
+.filters select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #000; /* bordure noire */
+  background: #f9f9f9;    /* fond clair */
+  color: #111;             /* texte noir */
+  font-size: 14px;
+}
+
+.filters input:focus,
+.filters select:focus {
+  border-color: #333;
+  outline: none;
+}
+
+/* ===== GRILLE PRODUITS ===== */
+.produits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+  align-content: start;
+}
+
+/* ===== CARTE PRODUIT ===== */
+.produit-card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: 0.2s;
+  min-height: 220px;
+}
+
+.produit-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.produit-card.disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* image */
+.produit-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.no-image {
+  height: 120px;
+  background: #e0e0e0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+/* texte produit */
+.produit-card h3 {
+  font-size: 14px;
+  margin: 0;
+}
+
+.produit-card p {
+  margin: 0;
+  font-weight: bold;
+  color: #111; /* prix noir */
+}
+
+.produit-card .stock {
+  font-size: 12px;
+  margin-top: auto;
+  padding: 4px 6px;
+  border-radius: 4px;
+  background: #f1f1f1;
+}
+
+/* ===== PANIER ===== */
+.panier-zone {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  position: sticky;
+  top: 20px;
+}
+
+.panier-zone h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+/* item panier */
+.panier-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+/* quantité */
+.qte {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.qte button {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: #1976d2;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.qte input {
+  width: 45px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* total */
+.total {
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: right;
+}
+
+/* bouton valider */
+.valider {
+  margin-top: 15px;
+  width: 100%;
+  padding: 12px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.valider:hover {
+  background: #43a047;
+}
+
+/* ===== MODAL REÇU ===== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-box {
+  background: white;
+  padding: 25px;
+  width: 320px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.modal-box button {
+  margin-top: 15px;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  background: #1976d2;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ===== PAGINATION ===== */
+.pagination-caisse {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.pagination-caisse button {
+  padding: 6px 12px;
+  border: 1px solid #000;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.pagination-caisse button:hover:not(:disabled) {
+  background: #333;
+}
+
+.pagination-caisse button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

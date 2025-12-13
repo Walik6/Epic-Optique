@@ -1,0 +1,577 @@
+.ventes-page {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.ventes-page h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Statistiques */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.stat-card.total { border-left: 5px solid #4caf50; }
+.stat-card.today { border-left: 5px solid #2196f3; }
+.stat-card.month { border-left: 5px solid #ff9800; }
+
+.stat-icon {
+  font-size: 3rem;
+  opacity: 0.9;
+}
+
+.stat-info {
+  flex: 1;
+}
+
+.stat-info h3 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.stat-detail {
+  font-size: 13px;
+  color: #999;
+  margin: 5px 0 0 0;
+}
+
+/* Filtres */
+.filters {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.filters select {
+  padding: 10px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.filters select:focus {
+  outline: none;
+  border-color: #2196f3;
+}
+
+/* Table */
+.ventes-table-container {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.ventes-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ventes-table thead {
+  background: #f5f5f5;
+}
+
+.ventes-table th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  color: #555;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ventes-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.3s;
+}
+
+.ventes-table tbody tr:hover {
+  background: #f9f9f9;
+}
+
+.ventes-table td {
+  padding: 15px;
+  color: #333;
+  font-size: 14px;
+}
+
+.total-cell {
+  font-weight: bold;
+  color: #4caf50;
+  font-size: 15px;
+}
+
+.no-data {
+  text-align: center;
+  padding: 40px !important;
+  color: #999;
+  font-style: italic;
+}
+
+.details-btn {
+  background: #2196f3;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.details-btn:hover {
+  background: #1976d2;
+  transform: scale(1.05);
+}
+
+.details-btn:active {
+  transform: scale(0.98);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 10px 20px;
+  background: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #1976d2;
+}
+
+.pagination button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* ============================================
+   MODAL AMÉLIORÉ - UX FRIENDLY
+   ============================================ */
+
+/* Animation fade-in pour l'overlay */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Animation slide-up pour le modal */
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Overlay du modal - parfaitement centré */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  backdrop-filter: blur(3px);
+  animation: fadeIn 0.2s ease-out;
+  overflow-y: auto;
+}
+
+/* Conteneur du modal */
+.details-modal {
+  position: relative;
+  background: white;
+  padding: 0;
+  border-radius: 16px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease-out;
+  overflow: hidden;
+}
+
+/* En-tête du modal */
+.modal-header {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+  color: white;
+  padding: 25px 30px;
+  border-radius: 16px 16px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* Bouton de fermeture X */
+.close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 24px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  line-height: 1;
+  padding: 0;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+/* Contenu scrollable du modal */
+.modal-content {
+  padding: 30px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Scrollbar personnalisée pour le contenu du modal */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* Info de la vente */
+.vente-info {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  padding: 20px;
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  border-left: 4px solid #2196f3;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.vente-info p {
+  margin: 0;
+  color: #333;
+  font-size: 15px;
+  display: contents;
+}
+
+.vente-info strong {
+  color: #555;
+  font-weight: 600;
+  grid-column: 1;
+}
+
+.vente-info span {
+  grid-column: 2;
+  color: #333;
+}
+
+/* Articles vendus */
+.details-items h3 {
+  margin: 0 0 15px 0;
+  font-size: 17px;
+  color: #333;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.details-items h3::before {
+  content: '🛍️';
+  font-size: 20px;
+}
+
+/* Item individuel */
+.detail-item {
+  background: #f9fafb;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s;
+}
+
+.detail-item:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  transform: translateX(5px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.detail-name {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detail-name strong {
+  color: #1f2937;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.detail-name span {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.detail-prix {
+  font-weight: bold;
+  color: #2196f3;
+  font-size: 17px;
+  white-space: nowrap;
+}
+
+/* Total de la vente */
+.details-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin-top: 10px;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border-radius: 12px;
+  border: 2px solid #4caf50;
+  font-size: 19px;
+  color: #2e7d32;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+}
+
+.details-total strong:first-child {
+  font-size: 17px;
+  color: #1b5e20;
+}
+
+.details-total strong:last-child {
+  font-size: 22px;
+  color: #2e7d32;
+}
+
+/* Actions du modal */
+.modal-actions {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  padding: 20px 30px;
+  border-top: 1px solid #e5e7eb;
+  margin: 0 -30px -30px -30px;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.modal-actions button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s;
+  background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+.modal-actions button:hover {
+  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+  box-shadow: 0 6px 16px rgba(33, 150, 243, 0.4);
+  transform: translateY(-2px);
+}
+
+.modal-actions button:active {
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .ventes-table-container {
+    overflow-x: auto;
+  }
+  
+  .ventes-table {
+    min-width: 600px;
+  }
+
+  .details-modal {
+    max-width: 95%;
+    max-height: 95vh;
+  }
+
+  .modal-header {
+    padding: 20px;
+  }
+
+  .modal-header h2 {
+    font-size: 18px;
+  }
+
+  .modal-content {
+    padding: 20px;
+  }
+
+  .vente-info {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .vente-info strong,
+  .vente-info span {
+    grid-column: 1;
+  }
+
+  .detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .details-total {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}
+
+/* Animation pour fermeture du modal */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+}
+
+/* Classes pour l'animation de fermeture */
+.modal-overlay.closing {
+  animation: fadeOut 0.2s ease-out forwards;
+}
+
+.details-modal.closing {
+  animation: slideDown 0.2s ease-out forwards;
+}
