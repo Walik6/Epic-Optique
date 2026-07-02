@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { FaHourglassHalf, FaUndo, FaCheckCircle, FaTruck } from 'react-icons/fa';
 import './DashboardOverview.css';
 import useAdminAuth from '../hooks/useAdminAuth';
 
@@ -28,23 +29,35 @@ const DashboardOverview = () => {
 
       <div className="cards">
         <div className="card en_attente">
-          <h2>{stats.en_attente || 0}</h2>
-          <p>En attente</p>
+          <div className="card-icon"><FaHourglassHalf size={20} /></div>
+          <div>
+            <h2>{stats.en_attente || 0}</h2>
+            <p>En attente</p>
+          </div>
         </div>
 
         <div className="card retour">
-          <h2>{stats.retour || 0}</h2>
-          <p>Retour</p>
+          <div className="card-icon"><FaUndo size={20} /></div>
+          <div>
+            <h2>{stats.retour || 0}</h2>
+            <p>Retour</p>
+          </div>
         </div>
 
         <div className="card confirmée">
-          <h2>{stats.confirmée || 0}</h2>
-          <p>Confirmées</p>
+          <div className="card-icon"><FaCheckCircle size={20} /></div>
+          <div>
+            <h2>{stats.confirmée || 0}</h2>
+            <p>Confirmées</p>
+          </div>
         </div>
 
         <div className="card livrée">
-          <h2>{stats.livrée || 0}</h2>
-          <p>Livrées</p>
+          <div className="card-icon"><FaTruck size={20} /></div>
+          <div>
+            <h2>{stats.livrée || 0}</h2>
+            <p>Livrées</p>
+          </div>
         </div>
       </div>
 

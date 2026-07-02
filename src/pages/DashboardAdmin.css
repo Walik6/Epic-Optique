@@ -13,40 +13,88 @@
   color: var(--admin-text);
 }
 
-.commandes-table {
-  width: 100%;
-  border-collapse: collapse;
+.commandes-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--admin-space-3);
+}
+
+.commande-card {
   background: var(--admin-surface);
   border: 1px solid var(--admin-border);
   border-radius: var(--admin-radius-lg);
-  overflow: hidden;
-  font-size: 14px;
+  padding: var(--admin-space-4);
+  box-shadow: var(--admin-shadow-sm);
+  transition: box-shadow 0.15s ease;
 }
 
-.commandes-table th,
-.commandes-table td {
-  padding: var(--admin-space-3) var(--admin-space-4);
-  border-bottom: 1px solid var(--admin-border);
+.commande-card:hover {
+  box-shadow: var(--admin-shadow-md);
+}
+
+.commande-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--admin-space-3);
+}
+
+.commande-card-client {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.commande-card-client strong {
+  font-size: 15px;
   color: var(--admin-text);
-  vertical-align: middle;
-  text-align: left;
 }
 
-.commandes-table th {
-  background: var(--admin-bg);
+.commande-card-client span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
   color: var(--admin-text-muted);
-  font-weight: 600;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
 }
 
-.commandes-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.commandes-table tbody tr:hover {
+.commande-card-comment {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: var(--admin-space-3) 0 0;
+  padding: var(--admin-space-2) var(--admin-space-3);
   background: var(--admin-bg);
+  border-radius: var(--admin-radius-sm);
+  font-size: 13px;
+  color: var(--admin-text-muted);
+  font-style: italic;
+}
+
+.commande-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--admin-space-3);
+  margin-top: var(--admin-space-4);
+  padding-top: var(--admin-space-3);
+  border-top: 1px solid var(--admin-border);
+  flex-wrap: wrap;
+}
+
+.commande-card-bottom .admin-select {
+  width: auto;
+  min-width: 160px;
+}
+
+.commande-card-actions {
+  display: flex;
+  gap: var(--admin-space-2);
+}
+
+.commande-card-actions .admin-btn {
+  padding: 8px 14px;
+  font-size: 13px;
 }
 
 /* Badges statut */
@@ -65,48 +113,6 @@
 .statut.retour { background: var(--admin-danger-soft); color: var(--admin-danger); }
 .statut.confirmée { background: var(--admin-success-soft); color: var(--admin-success); }
 .statut.livrée { background: var(--admin-info-soft); color: var(--admin-info); }
-
-/* Boutons sobres */
-.commandes-table button,
-.commandes-table select {
-  padding: 6px 12px;
-  border-radius: var(--admin-radius-sm);
-  border: 1px solid var(--admin-border-strong);
-  background-color: var(--admin-surface);
-  color: var(--admin-text);
-  cursor: pointer;
-  font-size: 13px;
-  font-family: var(--admin-font);
-  transition: all 0.15s ease;
-}
-
-.commandes-table button:hover,
-.commandes-table select:hover {
-  background-color: var(--admin-bg);
-}
-
-.detail-btn {
-  background-color: var(--admin-accent-soft) !important;
-  border-color: transparent !important;
-  color: var(--admin-accent) !important;
-}
-
-.detail-btn:hover {
-  background-color: var(--admin-accent) !important;
-  color: #fff !important;
-}
-
-.delete-btn {
-  background-color: var(--admin-danger-soft) !important;
-  border-color: transparent !important;
-  color: var(--admin-danger) !important;
-  font-weight: bold;
-}
-
-.delete-btn:hover {
-  background-color: var(--admin-danger) !important;
-  color: #fff !important;
-}
 
 .notification {
   background: var(--admin-text);
@@ -230,14 +236,16 @@
     padding: var(--admin-space-4);
   }
 
-  .commandes-table {
-    display: block;
-    overflow-x: auto;
+  .commande-card-top {
+    flex-direction: column;
   }
 
-  .commandes-table th,
-  .commandes-table td {
-    padding: var(--admin-space-2) var(--admin-space-3);
-    font-size: 12px;
+  .commande-card-bottom {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .commande-card-bottom .admin-select {
+    width: 100%;
   }
 }

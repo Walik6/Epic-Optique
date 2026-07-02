@@ -35,6 +35,7 @@
 
 .stat-card:hover {
   box-shadow: var(--admin-shadow-md);
+  transform: translateY(-2px);
 }
 
 .stat-card.total { border-left: 4px solid var(--admin-success); }
@@ -42,9 +43,18 @@
 .stat-card.month { border-left: 4px solid var(--admin-warning); }
 
 .stat-icon {
-  font-size: 2.2rem;
-  opacity: 0.9;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: var(--admin-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.stat-card.total .stat-icon { background: var(--admin-success-soft); color: var(--admin-success); }
+.stat-card.today .stat-icon { background: var(--admin-info-soft); color: var(--admin-info); }
+.stat-card.month .stat-icon { background: var(--admin-warning-soft); color: var(--admin-warning); }
 
 .stat-info {
   flex: 1;

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaPen, FaTrash, FaImage } from 'react-icons/fa';
 import './StockPage.css';
 import useAdminAuth from '../hooks/useAdminAuth';
 
@@ -342,45 +343,48 @@ const StockPage = () => {
         </button>
       </div>
 
-      <table className="stock-table">
-        <thead>
-          <tr>
-            <th>Nom</th><th>Prix</th><th>Quantité</th><th>Image</th><th>Catégorie</th><th>Modifier</th><th>Supprimer</th>
-          </tr>
-        </thead>
-        <tbody>
-          {produits.map(p => (
-            <tr key={p.id} className={p.quantite === 0 ? 'out-of-stock' : ''}>
-              <td>{p.nom}</td>
-              <td>{p.prix.toLocaleString('fr-FR')} DZD</td>
-              <td>
-                <button onClick={() => updateQuantite(p.id, p.quantite-1)} disabled={p.quantite<=0}>−</button>
+      <div className="stock-grid">
+        {produits.map(p => (
+          <div key={p.id} className={`stock-card ${p.quantite === 0 ? 'out-of-stock' : ''}`}>
+            <div className="stock-card-image">
+              {p.image ? (
+                <img
+                  src={p.image}
+                  alt={p.nom}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="60" height="60"%3E%3Crect fill="%23ddd" width="60" height="60"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%23999"%3E?%3C/text%3E%3C/svg%3E';
+                  }}
+                />
+              ) : (
+                <div className="stock-card-noimage"><FaImage size={22} /></div>
+              )}
+              {p.quantite === 0 && <span className="stock-card-badge">Rupture</span>}
+            </div>
+
+            <div className="stock-card-body">
+              {p.categorie_nom && <span className="stock-card-category">{p.categorie_nom}</span>}
+              <h3>{p.nom}</h3>
+              <p className="stock-card-price">{p.prix.toLocaleString('fr-FR')} DZD</p>
+
+              <div className="stock-card-qty">
+                <button onClick={() => updateQuantite(p.id, p.quantite - 1)} disabled={p.quantite <= 0}>−</button>
                 <span className={p.quantite === 0 ? 'zero-stock' : ''}>{p.quantite}</span>
-                <button onClick={() => updateQuantite(p.id, p.quantite+1)}>+</button>
-              </td>
-              <td>
-                {p.image ? (
-                  <img 
-                    src={p.image} 
-                    alt={p.nom} 
-                    className="produit-img"
-                    onError={(e) => {
-                      e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="60" height="60"%3E%3Crect fill="%23ddd" width="60" height="60"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%23999"%3E?%3C/text%3E%3C/svg%3E';
-                    }}
-                  />
-                ) : (
-                  <span style={{color: '#999', fontSize: '12px'}}>Aucune image</span>
-                )}
-              </td>
-              <td>{p.categorie_nom}</td>
-              <td>
-                <button onClick={() => openEditModal(p)}>✎ Modifier</button>
-              </td>
-              <td><button className="delete-btn" onClick={() => deleteProduit(p.id)}>×</button></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                <button onClick={() => updateQuantite(p.id, p.quantite + 1)}>+</button>
+              </div>
+            </div>
+
+            <div className="stock-card-actions">
+              <button className="admin-btn secondary" onClick={() => openEditModal(p)}>
+                <FaPen size={12} /> Modifier
+              </button>
+              <button className="admin-btn danger" onClick={() => deleteProduit(p.id)} aria-label="Supprimer">
+                <FaTrash size={12} />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
 
       <div className="pagination">
         <button onClick={() => setCurrentPage(prev => prev - 1)} disabled={currentPage <= 1}>Précédent</button>

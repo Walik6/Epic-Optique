@@ -23,18 +23,38 @@
   background: var(--admin-surface);
   border: 1px solid var(--admin-border);
   border-radius: var(--admin-radius-lg);
-  padding: var(--admin-space-5);
+  padding: var(--admin-space-4);
   box-shadow: var(--admin-shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--admin-space-3);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.card:hover {
+  box-shadow: var(--admin-shadow-md);
+  transform: translateY(-2px);
+}
+
+.card-icon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: var(--admin-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .card h2 {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
-  margin-bottom: var(--admin-space-1);
+  line-height: 1.1;
+  margin-bottom: 2px;
 }
 
 .card p {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--admin-text-muted);
   text-transform: uppercase;
@@ -59,9 +79,16 @@
 
 /* Couleurs spécifiques, alignées sur les tokens sémantiques */
 .card.en_attente h2 { color: var(--admin-warning); }
+.card.en_attente .card-icon { background: var(--admin-warning-soft); color: var(--admin-warning); }
+
 .card.retour h2 { color: var(--admin-danger); }
+.card.retour .card-icon { background: var(--admin-danger-soft); color: var(--admin-danger); }
+
 .card.confirmée h2 { color: var(--admin-success); }
+.card.confirmée .card-icon { background: var(--admin-success-soft); color: var(--admin-success); }
+
 .card.livrée h2 { color: var(--admin-info); }
+.card.livrée .card-icon { background: var(--admin-info-soft); color: var(--admin-info); }
 
 @media (max-width: 768px) {
   .overview-dashboard {

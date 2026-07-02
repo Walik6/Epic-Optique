@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaMapMarkerAlt, FaPhoneAlt, FaEye, FaTrash, FaCommentDots } from 'react-icons/fa';
 import './DashboardAdmin.css';
 import useAdminAuth from '../hooks/useAdminAuth';
 
@@ -64,45 +65,49 @@ const DashboardAdmin = () => {
 
   return (
     <div className="dashboard-admin">
-      <h1>Dashboard Admin</h1>
+      <h1>Commandes</h1>
       {message && <div className="notification">{message}</div>}
 
-      <table className="commandes-table">
-        <thead>
-          <tr>
-            <th>Nom</th><th>Prénom</th><th>Adresse</th><th>Téléphone</th>
-            <th>Statut</th><th>Changer statut</th><th>Commentaire</th><th>Détail</th><th>Supprimer</th>
-          </tr>
-        </thead>
-        <tbody>
-          {commandes.map(cmd => (
-            <tr key={cmd.id}>
-              <td>{cmd.nom_client}</td>
-              <td>{cmd.prenom_client}</td>
-              <td>{cmd.adresse}</td>
-              <td>{cmd.telephone}</td>
-              <td><span className={`statut ${cmd.statut}`}>{cmd.statut.replace('_',' ')}</span></td>
-              <td>
-                <select value={cmd.statut} onChange={e => updateStatut(cmd.id, e.target.value)}>
-                  <option value="en_attente">En attente</option>
-                  <option value="retour">Retour</option>
-                  <option value="confirmée">Confirmée</option>
-                  <option value="livrée">Livrée</option>
-                </select>
-              </td>
-              <td>{cmd.commentaire || '-'}</td>
-              <td>
-                <button className="detail-btn" onClick={() => fetchCommandeDetail(cmd.id)}>
-                  Voir détail
+      <div className="commandes-list">
+        {commandes.map(cmd => (
+          <div key={cmd.id} className="commande-card">
+            <div className="commande-card-top">
+              <div className="commande-card-client">
+                <strong>{cmd.nom_client} {cmd.prenom_client}</strong>
+                <span><FaPhoneAlt size={11} /> {cmd.telephone}</span>
+                <span><FaMapMarkerAlt size={11} /> {cmd.adresse}</span>
+              </div>
+              <span className={`statut ${cmd.statut}`}>{cmd.statut.replace('_', ' ')}</span>
+            </div>
+
+            {cmd.commentaire && (
+              <p className="commande-card-comment"><FaCommentDots size={12} /> {cmd.commentaire}</p>
+            )}
+
+            <div className="commande-card-bottom">
+              <select
+                className="admin-select"
+                value={cmd.statut}
+                onChange={e => updateStatut(cmd.id, e.target.value)}
+              >
+                <option value="en_attente">En attente</option>
+                <option value="retour">Retour</option>
+                <option value="confirmée">Confirmée</option>
+                <option value="livrée">Livrée</option>
+              </select>
+
+              <div className="commande-card-actions">
+                <button className="admin-btn secondary" onClick={() => fetchCommandeDetail(cmd.id)}>
+                  <FaEye size={12} /> Détail
                 </button>
-              </td>
-              <td>
-                <button className="delete-btn" onClick={() => deleteCommande(cmd.id)}>×</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                <button className="admin-btn danger" onClick={() => deleteCommande(cmd.id)} aria-label="Supprimer">
+                  <FaTrash size={12} />
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
 
       {/* 🔹 PAGINATION */}
       <div className="pagination">

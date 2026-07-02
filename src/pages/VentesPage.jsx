@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaWallet, FaCalendarDay, FaCalendarAlt } from 'react-icons/fa';
 import './VentesPage.css';
 import useAdminAuth from '../hooks/useAdminAuth';
 
@@ -101,12 +102,12 @@ const VentesPage = () => {
 
   return (
     <div className="ventes-page">
-      <h1>📊 Récapitulatif des Ventes</h1>
+      <h1>Récapitulatif des Ventes</h1>
 
       {/* Statistiques */}
       <div className="stats-grid">
         <div className="stat-card total">
-          <div className="stat-icon">💰</div>
+          <div className="stat-icon"><FaWallet size={18} /></div>
           <div className="stat-info">
             <h3>Chiffre d'Affaires Total</h3>
             <p className="stat-value">{stats.total_ca.toLocaleString('fr-FR')} DZD</p>
@@ -114,7 +115,7 @@ const VentesPage = () => {
         </div>
 
         <div className="stat-card today">
-          <div className="stat-icon">📅</div>
+          <div className="stat-icon"><FaCalendarDay size={18} /></div>
           <div className="stat-info">
             <h3>Aujourd'hui</h3>
             <p className="stat-value">{stats.ca_aujourd_hui.toLocaleString('fr-FR')} DZD</p>
@@ -123,7 +124,7 @@ const VentesPage = () => {
         </div>
 
         <div className="stat-card month">
-          <div className="stat-icon">📆</div>
+          <div className="stat-icon"><FaCalendarAlt size={18} /></div>
           <div className="stat-info">
             <h3>Ce Mois</h3>
             <p className="stat-value">{stats.ca_mois.toLocaleString('fr-FR')} DZD</p>
