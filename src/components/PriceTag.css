@@ -1,0 +1,35 @@
+.promo-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #e10600;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 6px;
+  z-index: 2;
+  box-shadow: 0 2px 6px rgba(225, 6, 0, 0.35);
+}
+
+.price-tag {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.price-tag.has-promo .price-tag-original {
+  color: #999;
+  text-decoration: line-through;
+  font-size: 0.85em;
+}
+
+.price-tag.has-promo .price-tag-current {
+  color: #e10600;
+  font-weight: 700;
+}
+
+.price-tag.compact {
+  gap: 6px;
+  font-size: 0.9em;
+}

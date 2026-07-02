@@ -83,12 +83,14 @@ if (isset($_GET['id'])) {
 // ========================================
 
 $show_out_of_stock = isset($_GET['show_out_of_stock']) && $_GET['show_out_of_stock'] === 'true';
+$promo_only = isset($_GET['promo']) && $_GET['promo'] === 'true';
 $categorie_id = $_GET['categorie'] ?? '';
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $search = $_GET['search'] ?? '';
 $filter = $_GET['filter'] ?? '';
 $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : null;
 $offset = $limit ? ($page - 1) * $limit : 0;
+$promoCondition = " AND prix_promo IS NOT NULL AND prix_promo > 0 AND prix_promo < prix";
 
 try {
     // ========================================
@@ -98,7 +100,10 @@ try {
     if (!$show_out_of_stock) {
         $countSql .= " AND quantite > 0";
     }
-    
+    if ($promo_only) {
+        $countSql .= $promoCondition;
+    }
+
     $countParams = [];
     
     if ($categorie_id) {
@@ -121,11 +126,14 @@ try {
     // RÉCUPÉRER LES PRODUITS
     // ========================================
     $sql = "SELECT * FROM produits WHERE 1=1";
-    
+
     if (!$show_out_of_stock) {
         $sql .= " AND quantite > 0";
     }
-    
+    if ($promo_only) {
+        $sql .= $promoCondition;
+    }
+
     $params = [];
     
     if ($categorie_id) {

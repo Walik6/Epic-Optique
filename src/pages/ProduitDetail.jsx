@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import useSEO from '../hooks/useSEO';
+import PriceTag, { PromoBadge } from '../components/PriceTag';
+import { getPromoInfo } from '../utils/pricing';
 import './ProduitDetail.css';
 
 const categoriesMap = {
@@ -58,11 +60,12 @@ const ProduitDetail = () => {
   }, [id, API_URL, navigate]);
 
   const imagePrincipale = images.length > 0 ? images[imageActive]?.image_url : produit?.image;
+  const promoInfo = produit ? getPromoInfo(produit) : null;
 
   useSEO({
     title: produit ? `${produit.nom} | Epic Optique` : undefined,
     description: produit
-      ? `${produit.nom} - ${produit.categorie_nom || ''} à ${produit.prix?.toLocaleString('fr-FR')} DZD chez Epic Optique.`
+      ? `${produit.nom} - ${produit.categorie_nom || ''} à ${promoInfo.price.toLocaleString('fr-FR')} DZD chez Epic Optique.`
       : undefined,
     image: imagePrincipale,
     url: `https://epicoptique.com/produit/${id}`,
@@ -76,7 +79,7 @@ const ProduitDetail = () => {
         '@type': 'Offer',
         url: `https://epicoptique.com/produit/${id}`,
         priceCurrency: 'DZD',
-        price: produit.prix,
+        price: promoInfo.price,
         availability: produit.quantite > 0
           ? 'https://schema.org/InStock'
           : 'https://schema.org/OutOfStock'
@@ -97,11 +100,12 @@ const ProduitDetail = () => {
         <div className="img-section">
           {/* Image principale */}
           <div className="main-image-container">
+            <PromoBadge produit={produit} />
             {imagePrincipale ? (
-              <img 
-                src={imagePrincipale} 
-                alt={`${produit.nom} - Image ${imageActive + 1}`} 
-                className="produit-detail-img" 
+              <img
+                src={imagePrincipale}
+                alt={`${produit.nom} - Image ${imageActive + 1}`}
+                className="produit-detail-img"
               />
             ) : (
               <div className="no-image">Pas d'image</div>
@@ -133,7 +137,7 @@ const ProduitDetail = () => {
         <div className="info-section">
           <h1>{produit.nom}</h1>
           <p className="prix-detail">
-            <strong>Prix :</strong> {produit.prix?.toLocaleString('fr-FR')} DZD
+            <strong>Prix :</strong> <PriceTag produit={produit} />
           </p>
           <p>
             <strong>Stock :</strong> {produit.quantite > 0 ? `${produit.quantite} disponible(s)` : 'Rupture de stock'}

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { FaImage, FaMinus, FaPlus } from 'react-icons/fa';
 import './Caisse.css';
 import useAdminAuth from '../hooks/useAdminAuth';
+import PriceTag, { PromoBadge } from '../components/PriceTag';
+import { getPromoInfo } from '../utils/pricing';
 
 const CaissePage = () => {
   useAdminAuth();
@@ -56,7 +58,10 @@ const CaissePage = () => {
         i.id === p.id ? { ...i, quantite_vendue: i.quantite_vendue + 1 } : i
       ));
     } else {
-      setPanier([...panier, { ...p, quantite_vendue: 1 }]);
+      // Prix fige au moment de l'ajout (promo si active) : c'est ce prix qui
+      // est envoye a validerVente.php.
+      const { price } = getPromoInfo(p);
+      setPanier([...panier, { ...p, prix: price, quantite_vendue: 1 }]);
     }
   };
 
@@ -131,9 +136,12 @@ const CaissePage = () => {
                 className={`produit-card ${p.quantite === 0 ? 'disabled' : ''}`}
                 onClick={() => ajouterAuPanier(p)}
               >
-                {p.image ? <img src={p.image} alt={p.nom}/> : <div className="no-image"><FaImage size={20} /></div>}
+                <div className="produit-card-image">
+                  <PromoBadge produit={p} />
+                  {p.image ? <img src={p.image} alt={p.nom}/> : <div className="no-image"><FaImage size={20} /></div>}
+                </div>
                 <h3>{p.nom}</h3>
-                <p>{p.prix.toLocaleString()} DZD</p>
+                <p><PriceTag produit={p} compact /></p>
                 <span className="stock">
                   {p.quantite === 0 ? 'Rupture' : `Stock: ${p.quantite}`}
                 </span>

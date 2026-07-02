@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { getPromoInfo } from '../utils/pricing';
 
 const CartContext = createContext(undefined);
 
@@ -15,6 +16,11 @@ export const CartProvider = ({ children }) => {
   }, [cart]);
 
   const addToCart = (product) => {
+    // Le prix effectif (promo si actif) est fige au moment de l'ajout : c'est
+    // ce prix qui sera facture, le panier n'a pas besoin de connaitre la regle
+    // de promo par la suite.
+    const { price } = getPromoInfo(product);
+
     setCart(prev => {
       const existing = prev.find(p => p.id === product.id);
       if (existing) {
@@ -24,7 +30,7 @@ export const CartProvider = ({ children }) => {
             : p
         );
       }
-      return [...prev, { ...product, quantite: 1 }];
+      return [...prev, { ...product, prix: price, quantite: 1 }];
     });
   };
 

@@ -35,7 +35,37 @@ try {
         $fields[] = "categorie_id = ?";
         $values[] = $data['categorieId'];
     }
-    
+
+    // array_key_exists (pas isset) pour pouvoir remettre le prix promo a null
+    if (array_key_exists('prixPromo', $data)) {
+        $prixPromo = $data['prixPromo'];
+
+        if ($prixPromo === null || $prixPromo === '') {
+            $fields[] = "prix_promo = ?";
+            $values[] = null;
+        } else {
+            if (!is_numeric($prixPromo)) {
+                throw new Exception('Le prix promo doit être un nombre');
+            }
+
+            // Compare au prix fourni dans cette requete, sinon au prix actuel en base
+            if (isset($data['prix'])) {
+                $prixReference = (float)$data['prix'];
+            } else {
+                $stmtPrix = $conn->prepare("SELECT prix FROM produits WHERE id = ?");
+                $stmtPrix->execute([$data['id']]);
+                $prixReference = (float)$stmtPrix->fetchColumn();
+            }
+
+            if ((float)$prixPromo >= $prixReference) {
+                throw new Exception('Le prix promo doit être inférieur au prix normal');
+            }
+
+            $fields[] = "prix_promo = ?";
+            $values[] = $prixPromo;
+        }
+    }
+
     // ❌ SUPPRIMÉ : Le champ 'image' n'existe plus dans la table produits
     // Les images sont maintenant dans la table produit_images
     

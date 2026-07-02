@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './NouveautesPage.css';
 import { useCart } from '../context/CartContext';
 import useSEO from '../hooks/useSEO';
+import PriceTag, { PromoBadge } from '../components/PriceTag';
 
 const NouveautesPage = () => {
   const { addToCart } = useCart();
@@ -77,14 +78,15 @@ const NouveautesPage = () => {
               style={{ cursor: 'pointer' }}
             >
               <div className="new-badge-top">✨ NOUVEAU</div>
-              
+
               <div className="img-container">
+                <PromoBadge produit={prod} />
                 <img src={prod.image} alt={prod.nom} className="produit-img" />
               </div>
 
               <div className="produit-info">
                 <h3 className="produit-nom">{prod.nom}</h3>
-                <p className="produit-prix">{prod.prix_vente || prod.prix} DZD</p>
+                <p className="produit-prix"><PriceTag produit={prod} /></p>
                 <button
                   className="btn-panier"
                   onClick={(e) => { e.stopPropagation(); addToCart(prod); }}

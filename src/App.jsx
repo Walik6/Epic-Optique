@@ -1,14 +1,12 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
 import Header from './components/Header';
 
-import HeroSection from './components/HeroSection';
-import CategorySection from './components/CategorySection';
 import Footer from './components/Footer';
 import NotFoundPage from './pages/NotFoundPage';
 
-
+import Home from './pages/Home';
 import ProduitsPage from './pages/ProduitsPage';
 import ProduitDetail from './pages/ProduitDetail';
 import CartPage from './pages/CartPage';
@@ -30,6 +28,10 @@ const Caisse = lazy(() => import('./pages/Caisse'));
 const StockPage = lazy(() => import('./pages/StockPage'));
 const VentesPage = lazy(() => import('./pages/VentesPage'));
 const Login = lazy(() => import('./pages/Login'));
+
+// La sidebar admin ne doit s'afficher que sur ces routes - un admin qui
+// navigue vers une page publique doit voir le header/footer normaux.
+const ADMIN_PATHS = ['/admin', '/overview', '/stock', '/ventes', '/caisse'];
 
 function App() {
   const [user, setUser] = useState(null);
@@ -72,20 +74,30 @@ function App() {
     localStorage.removeItem('user');
   };
 
+  if (loading) return <div>Chargement...</div>;
+
+  return (
+    <BrowserRouter>
+      <AppShell user={user} loading={loading} handleLogin={handleLogin} handleLogout={handleLogout} />
+    </BrowserRouter>
+  );
+}
+
+function AppShell({ user, loading, handleLogin, handleLogout }) {
+  const location = useLocation();
+  const isAdmin = user?.role === 'admin';
+  const showAdminLayout = isAdmin && ADMIN_PATHS.includes(location.pathname);
+
   //Protection des routes admin
   const ProtectedRoute = ({ children }) => {
     if (loading) return <div>Chargement...</div>;
-    return user?.role === 'admin' ? children : <Navigate to="/login" />;
+    return isAdmin ? children : <Navigate to="/login" />;
   };
-
-  if (loading) return <div>Chargement...</div>;
-
-  const isAdmin = user?.role === 'admin';
 
   const routesElement = (
     <Routes>
       {/* Page d'accueil */}
-      <Route path="/" element={<><HeroSection /><CategorySection /></>} />
+      <Route path="/" element={<Home />} />
 
       {/* Liste de tous les produits */}
       <Route path="/produits" element={<ProduitsPage />} />
@@ -143,23 +155,21 @@ function App() {
   );
 
   return (
-    <BrowserRouter>
-      <Suspense fallback={<div>Chargement...</div>}>
-        <ScrollToTop />
+    <Suspense fallback={<div>Chargement...</div>}>
+      <ScrollToTop />
 
-        {isAdmin ? (
-          <AdminLayout onLogout={handleLogout}>
-            {routesElement}
-          </AdminLayout>
-        ) : (
-          <>
-            <Header />
-            {routesElement}
-            <Footer />
-          </>
-        )}
-      </Suspense>
-    </BrowserRouter>
+      {showAdminLayout ? (
+        <AdminLayout onLogout={handleLogout}>
+          {routesElement}
+        </AdminLayout>
+      ) : (
+        <>
+          <Header />
+          {routesElement}
+          <Footer />
+        </>
+      )}
+    </Suspense>
   );
 }
 

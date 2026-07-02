@@ -24,16 +24,29 @@ try {
     if (!isset($data['categorieId']) || empty($data['categorieId'])) {
         throw new Exception('La catégorie est obligatoire');
     }
-    
+
+    // Prix promo optionnel : vide/absent = pas de promo
+    $prixPromo = null;
+    if (!empty($data['prixPromo'])) {
+        if (!is_numeric($data['prixPromo'])) {
+            throw new Exception('Le prix promo doit être un nombre');
+        }
+        if ((float)$data['prixPromo'] >= (float)$data['prix']) {
+            throw new Exception('Le prix promo doit être inférieur au prix normal');
+        }
+        $prixPromo = $data['prixPromo'];
+    }
+
     // ✅ Insertion SANS le champ 'image' (qui n'existe plus dans la table produits)
     $stmt = $conn->prepare("
-        INSERT INTO produits (nom, prix, quantite, categorie_id) 
-        VALUES (?, ?, ?, ?)
+        INSERT INTO produits (nom, prix, prix_promo, quantite, categorie_id)
+        VALUES (?, ?, ?, ?, ?)
     ");
-    
+
     $success = $stmt->execute([
         $data['nom'],
         $data['prix'],
+        $prixPromo,
         $data['quantite'],
         $data['categorieId']
     ]);

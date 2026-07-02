@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { FaPen, FaTrash, FaImage, FaPlus, FaMinus, FaSearch, FaTimes, FaCamera, FaStar } from 'react-icons/fa';
 import './StockPage.css';
 import useAdminAuth from '../hooks/useAdminAuth';
+import PriceTag, { PromoBadge } from '../components/PriceTag';
+
+const EMPTY_FORM = { id:'', nom:'', prix:'', quantite:'', categorieId:'', enPromo: false, prixPromo: '' };
 
 const StockPage = () => {
   useAdminAuth();
 
   const [produits, setProduits] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [form, setForm] = useState({ id:'', nom:'', prix:'', quantite:'', categorieId:'' });
+  const [form, setForm] = useState(EMPTY_FORM);
   const [modalOpen, setModalOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -64,7 +67,10 @@ const StockPage = () => {
       });
   }, [currentPage, searchTerm, filterCategory, categories, API_URL]);
 
-  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = e => {
+    const { name, type, value, checked } = e.target;
+    setForm(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
+  };
 
   const handleSearchChange = e => {
     setSearchTerm(e.target.value);
@@ -161,9 +167,15 @@ const StockPage = () => {
       const isEdit = form.id && form.id !== '';
       const url = isEdit ? `${API_URL}/updateProduit.php` : `${API_URL}/addProduit.php`;
 
+      if (form.enPromo && form.prixPromo && parseFloat(form.prixPromo) >= parseFloat(form.prix)) {
+        alert('Le prix promo doit être inférieur au prix normal');
+        return;
+      }
+
       const body = {
         nom: form.nom,
         prix: parseFloat(form.prix),
+        prixPromo: form.enPromo && form.prixPromo ? parseFloat(form.prixPromo) : null,
         quantite: parseInt(form.quantite),
         categorieId: parseInt(form.categorieId)
       };
@@ -296,7 +308,7 @@ const StockPage = () => {
 
   const closeModal = () => {
     setModalOpen(false);
-    setForm({ id:'', nom:'', prix:'', quantite:'', categorieId:'' });
+    setForm(EMPTY_FORM);
     setProduitImages([]);
     setSelectedFiles([]);
   };
@@ -307,9 +319,11 @@ const StockPage = () => {
       nom: produit.nom,
       prix: produit.prix,
       quantite: produit.quantite,
-      categorieId: produit.categorie_id
+      categorieId: produit.categorie_id,
+      enPromo: produit.prix_promo != null,
+      prixPromo: produit.prix_promo ?? ''
     });
-    
+
     if (produit.id) {
       await loadProduitImages(produit.id);
     }
@@ -337,7 +351,7 @@ const StockPage = () => {
           </select>
         </div>
         <button className="admin-btn primary" onClick={() => {
-          setForm({ id:'', nom:'', prix:'', quantite:'', categorieId:'' });
+          setForm(EMPTY_FORM);
           setProduitImages([]);
           setSelectedFiles([]);
           setModalOpen(true);
@@ -353,6 +367,7 @@ const StockPage = () => {
         {produits.map(p => (
           <div key={p.id} className={`stock-card ${p.quantite === 0 ? 'out-of-stock' : ''}`}>
             <div className="stock-card-image">
+              <PromoBadge produit={p} />
               {p.image ? (
                 <img
                   src={p.image}
@@ -371,7 +386,7 @@ const StockPage = () => {
             <div className="stock-card-body">
               {p.categorie_nom && <span className="stock-card-category">{p.categorie_nom}</span>}
               <h3>{p.nom}</h3>
-              <p className="stock-card-price">{p.prix.toLocaleString('fr-FR')} DZD</p>
+              <p className="stock-card-price"><PriceTag produit={p} compact /></p>
 
               <div className="stock-card-qty">
                 <button onClick={() => updateQuantite(p.id, p.quantite - 1)} disabled={p.quantite <= 0} aria-label="Diminuer">
@@ -411,7 +426,25 @@ const StockPage = () => {
               <input name="nom" placeholder="Nom produit" value={form.nom} onChange={handleChange} required/>
               <input type="number" name="prix" placeholder="Prix" value={form.prix} onChange={handleChange} required/>
               <input type="number" name="quantite" placeholder="Quantité" value={form.quantite} onChange={handleChange} required/>
-              
+
+              <label className="promo-toggle">
+                <input type="checkbox" name="enPromo" checked={form.enPromo} onChange={handleChange} />
+                En promotion
+              </label>
+
+              {form.enPromo && (
+                <input
+                  type="number"
+                  name="prixPromo"
+                  placeholder="Prix promo"
+                  value={form.prixPromo}
+                  onChange={handleChange}
+                  min="0"
+                  step="0.01"
+                  required
+                />
+              )}
+
               <select 
                 name="categorieId" 
                 value={form.categorieId || ''}

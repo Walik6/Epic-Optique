@@ -292,6 +292,22 @@
   border-color: var(--admin-accent);
 }
 
+.promo-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--admin-space-2);
+  margin: -4px 0 var(--admin-space-3);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--admin-text);
+  cursor: pointer;
+}
+
+.promo-toggle input {
+  width: auto;
+  margin: 0;
+}
+
 .modal-actions {
   display: flex;
   justify-content: flex-end;
