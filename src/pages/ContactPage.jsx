@@ -3,8 +3,15 @@ import './ContactPage.css';
 import { FaFacebookF, FaInstagram } from 'react-icons/fa';
 import { SiTiktok } from 'react-icons/si';
 import { FaWhatsapp } from 'react-icons/fa';
+import useSEO from '../hooks/useSEO';
 
 const ContactPage = () => {
+  useSEO({
+    title: 'Contact | Epic Optique',
+    description: 'Contactez Epic Optique par téléphone, WhatsApp ou réseaux sociaux.',
+    url: 'https://epicoptique.com/contact'
+  });
+
   return (
     <div className="contact-page">
       <h1>Contactez-nous</h1>

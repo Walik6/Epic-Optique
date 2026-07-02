@@ -2,10 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './NouveautesPage.css';
 import { useCart } from '../context/CartContext';
+import useSEO from '../hooks/useSEO';
 
 const NouveautesPage = () => {
   const { addToCart } = useCart();
   const navigate = useNavigate();
+
+  useSEO({
+    title: 'Nouveautés | Epic Optique',
+    description: 'Découvrez les derniers modèles de montures et lunettes ajoutés chez Epic Optique.',
+    url: 'https://epicoptique.com/nouveautes'
+  });
 
   const [produits, setProduits] = useState([]);
   const [categories, setCategories] = useState([]);

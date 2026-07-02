@@ -2,10 +2,17 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ProduitsPage.css';
 import { useCart } from '../context/CartContext';
+import useSEO from '../hooks/useSEO';
 
 const ProduitsPage = () => {
   const { addToCart } = useCart();
   const navigate = useNavigate();
+
+  useSEO({
+    title: 'Nos produits | Epic Optique',
+    description: 'Parcourez le catalogue Epic Optique : montures, lunettes de vue et de soleil pour hommes, femmes et enfants.',
+    url: 'https://epicoptique.com/produits'
+  });
 
   const { categorieId } = useParams();
   const [produits, setProduits] = useState([]);

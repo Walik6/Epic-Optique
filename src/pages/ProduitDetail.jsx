@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import useSEO from '../hooks/useSEO';
 import './ProduitDetail.css';
 
 const categoriesMap = {
@@ -56,10 +57,19 @@ const ProduitDetail = () => {
     fetchProduit();
   }, [id, API_URL, navigate]);
 
+  const imagePrincipale = images.length > 0 ? images[imageActive]?.image_url : produit?.image;
+
+  useSEO({
+    title: produit ? `${produit.nom} | Epic Optique` : undefined,
+    description: produit
+      ? `${produit.nom} - ${produit.categorie_nom || ''} à ${produit.prix?.toLocaleString('fr-FR')} DZD chez Epic Optique.`
+      : undefined,
+    image: imagePrincipale,
+    url: `https://epicoptique.com/produit/${id}`
+  });
+
   if (loading) return <p className="loading">Chargement...</p>;
   if (!produit) return null;
-
-  const imagePrincipale = images.length > 0 ? images[imageActive].image_url : produit.image;
 
   return (
     <div className="produit-detail-page">

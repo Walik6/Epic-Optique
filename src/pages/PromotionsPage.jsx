@@ -1,7 +1,14 @@
 import React from 'react';
 import './PromotionsPage.css';
+import useSEO from '../hooks/useSEO';
 
 const PromotionsPage = () => {
+  useSEO({
+    title: 'Promotions | Epic Optique',
+    description: 'Les promotions Epic Optique arrivent bientôt.',
+    url: 'https://epicoptique.com/promotions'
+  });
+
   return (
     <div className="promotions-page">
       <div className="construction-container">

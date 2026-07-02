@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /stock
+Disallow: /ventes
+Disallow: /caisse
+Disallow: /overview
+Disallow: /login
+Disallow: /cart
+Disallow: /checkout
+
+Sitemap: https://epicoptique.com/sitemap.xml
