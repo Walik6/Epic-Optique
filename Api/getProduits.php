@@ -11,6 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 require 'db.php';
 
+// Base URL déduite de la requête (évite de coder un domaine en dur qui casse
+// dès qu'on change d'hébergeur ou d'environnement)
+$scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$baseUrl = $scheme . '://' . $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+
 // ========================================
 // CAS 1 : RÉCUPÉRER UN SEUL PRODUIT PAR ID
 // ========================================
@@ -49,7 +54,7 @@ if (isset($_GET['id'])) {
             
             // Ajouter l'URL complète pour chaque image
             foreach ($images as &$img) {
-                $img['image_url'] = "https://coral-termite-458611.hostingersite.com/Api" . $img['image_url'];
+                $img['image_url'] = $baseUrl . $img['image_url'];
             }
             
             // ✅ Ajouter le tableau d'images au produit
@@ -178,7 +183,7 @@ try {
         // Assigner les images aux produits
         foreach ($produits as &$p) {
             if (isset($imagesByProduit[$p['id']])) {
-                $p['image'] = "https://coral-termite-458611.hostingersite.com/Api" . $imagesByProduit[$p['id']];
+                $p['image'] = $baseUrl . $imagesByProduit[$p['id']];
             } else {
                 $p['image'] = null;
             }

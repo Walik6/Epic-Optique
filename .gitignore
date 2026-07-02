@@ -23,3 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 .env
+.env.production
+
+# Secrets PHP - ne jamais committer les identifiants de connexion
+Api/config.php
