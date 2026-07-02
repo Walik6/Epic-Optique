@@ -16,10 +16,10 @@ const DashboardOverview = () => {
   }, []);
 
   const chartData = [
-    { statut: 'En attente', value: stats.en_attente || 0, color: '#856404' },
-    { statut: 'Retour', value: stats.retour || 0, color: '#721c24' },
-    { statut: 'Confirmée', value: stats.confirmée || 0, color: '#218838' },
-    { statut: 'Livrée', value: stats.livrée || 0, color: '#004085' },
+    { statut: 'En attente', value: stats.en_attente || 0, color: '#b45309' },
+    { statut: 'Retour', value: stats.retour || 0, color: '#dc2626' },
+    { statut: 'Confirmée', value: stats.confirmée || 0, color: '#16a34a' },
+    { statut: 'Livrée', value: stats.livrée || 0, color: '#2563eb' },
   ];
 
   return (

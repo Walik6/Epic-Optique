@@ -1,0 +1,227 @@
+/* Design system admin — clair, épuré, cohérent sur toutes les pages back-office */
+:root {
+  /* Neutres */
+  --admin-bg: #f7f8fa;
+  --admin-surface: #ffffff;
+  --admin-border: #e5e7eb;
+  --admin-border-strong: #d1d5db;
+  --admin-text: #111827;
+  --admin-text-muted: #6b7280;
+  --admin-text-subtle: #9ca3af;
+
+  /* Accent unique (remplace #0077b6 / #2196f3 / #1976d2 / #2c3e50 dispersés) */
+  --admin-accent: #4f46e5;
+  --admin-accent-hover: #4338ca;
+  --admin-accent-soft: #eef2ff;
+
+  /* Sémantique (statuts commandes/ventes) */
+  --admin-success: #16a34a;
+  --admin-success-soft: #dcfce7;
+  --admin-warning: #b45309;
+  --admin-warning-soft: #fef3c7;
+  --admin-danger: #dc2626;
+  --admin-danger-soft: #fee2e2;
+  --admin-info: #2563eb;
+  --admin-info-soft: #dbeafe;
+
+  /* Échelles */
+  --admin-radius-sm: 6px;
+  --admin-radius-md: 10px;
+  --admin-radius-lg: 14px;
+  --admin-shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --admin-shadow-md: 0 4px 12px rgba(16, 24, 40, 0.08);
+  --admin-shadow-lg: 0 12px 32px rgba(16, 24, 40, 0.14);
+  --admin-space-1: 4px;
+  --admin-space-2: 8px;
+  --admin-space-3: 12px;
+  --admin-space-4: 16px;
+  --admin-space-5: 24px;
+  --admin-space-6: 32px;
+
+  --admin-font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ===== Layout ===== */
+.admin-page {
+  padding: var(--admin-space-6);
+  max-width: 1280px;
+  margin: 0 auto;
+  font-family: var(--admin-font);
+  color: var(--admin-text);
+}
+
+.admin-page h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--admin-text);
+  margin-bottom: var(--admin-space-5);
+}
+
+/* ===== Cards ===== */
+.admin-card {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-lg);
+  box-shadow: var(--admin-shadow-sm);
+}
+
+/* ===== Buttons ===== */
+.admin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--admin-space-2);
+  padding: 10px 18px;
+  border-radius: var(--admin-radius-sm);
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--admin-font);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+}
+
+.admin-btn.primary {
+  background: var(--admin-accent);
+  color: #fff;
+}
+.admin-btn.primary:hover {
+  background: var(--admin-accent-hover);
+}
+.admin-btn.primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.admin-btn.secondary {
+  background: var(--admin-surface);
+  color: var(--admin-text);
+  border-color: var(--admin-border-strong);
+}
+.admin-btn.secondary:hover {
+  background: var(--admin-bg);
+}
+
+.admin-btn.danger {
+  background: var(--admin-danger-soft);
+  color: var(--admin-danger);
+  border-color: transparent;
+}
+.admin-btn.danger:hover {
+  background: var(--admin-danger);
+  color: #fff;
+}
+
+/* ===== Badges de statut ===== */
+.admin-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  line-height: 1.4;
+}
+
+.admin-badge.success,
+.admin-badge.livrée,
+.admin-badge.confirmée { background: var(--admin-success-soft); color: var(--admin-success); }
+
+.admin-badge.warning,
+.admin-badge.en_attente { background: var(--admin-warning-soft); color: var(--admin-warning); }
+
+.admin-badge.danger,
+.admin-badge.retour { background: var(--admin-danger-soft); color: var(--admin-danger); }
+
+.admin-badge.info { background: var(--admin-info-soft); color: var(--admin-info); }
+
+/* ===== Tableaux ===== */
+.admin-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--admin-radius-lg);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--admin-surface);
+  font-size: 14px;
+}
+
+.admin-table th {
+  text-align: left;
+  padding: var(--admin-space-3) var(--admin-space-4);
+  background: var(--admin-bg);
+  color: var(--admin-text-muted);
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--admin-border);
+  white-space: nowrap;
+}
+
+.admin-table td {
+  padding: var(--admin-space-3) var(--admin-space-4);
+  border-bottom: 1px solid var(--admin-border);
+  color: var(--admin-text);
+  vertical-align: middle;
+}
+
+.admin-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-table tbody tr:hover {
+  background: var(--admin-bg);
+}
+
+/* ===== Formulaires ===== */
+.admin-input,
+.admin-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--admin-border-strong);
+  border-radius: var(--admin-radius-sm);
+  font-size: 14px;
+  font-family: var(--admin-font);
+  color: var(--admin-text);
+  background: var(--admin-surface);
+  box-sizing: border-box;
+  transition: border-color 0.15s ease;
+}
+
+.admin-input:focus,
+.admin-select:focus {
+  outline: none;
+  border-color: var(--admin-accent);
+}
+
+/* ===== Modales ===== */
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--admin-space-4);
+  z-index: 1000;
+}
+
+.admin-modal {
+  background: var(--admin-surface);
+  border-radius: var(--admin-radius-lg);
+  box-shadow: var(--admin-shadow-lg);
+  width: 100%;
+  max-width: 520px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: var(--admin-space-5);
+}
+
+@media (max-width: 768px) {
+  .admin-page {
+    padding: var(--admin-space-4);
+  }
+}

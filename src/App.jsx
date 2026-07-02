@@ -23,7 +23,7 @@ import './App.css';
 // Chargées à la demande : jamais nécessaires pour un visiteur public,
 // inutile d'alourdir le bundle initial avec (recharts en particulier
 // est lourd et n'est utilisé que dans DashboardOverview).
-const AdminHeader = lazy(() => import('./components/AdminHeader'));
+const AdminLayout = lazy(() => import('./components/AdminLayout'));
 const DashboardAdmin = lazy(() => import('./pages/DashboardAdmin'));
 const DashboardOverview = lazy(() => import('./pages/DashboardOverview'));
 const Caisse = lazy(() => import('./pages/Caisse'));
@@ -80,79 +80,84 @@ function App() {
 
   if (loading) return <div>Chargement...</div>;
 
-  //Header dynamique
-  const HeaderToShow =
-    user?.role === 'admin' ? (
-      <AdminHeader onLogout={handleLogout} />
-    ) : (
-      <Header />
-    );
+  const isAdmin = user?.role === 'admin';
+
+  const routesElement = (
+    <Routes>
+      {/* Page d'accueil */}
+      <Route path="/" element={<><HeroSection /><CategorySection /></>} />
+
+      {/* Liste de tous les produits */}
+      <Route path="/produits" element={<ProduitsPage />} />
+
+      {/* Route 404 */}
+      <Route path="*" element={<NotFoundPage />} />
+
+      {/* Détail d'un produit - IMPORTANT: AVANT la route catégorie */}
+      <Route path="/produit/:id" element={<ProduitDetail />} />
+
+      {/* Produits par catégorie */}
+      <Route path="/produits/categorie/:categorieId" element={<ProduitsPage />} />
+
+      {/* Autres pages */}
+      <Route path="/contact" element={<ContactPage />} />
+      <Route path="/cart" element={<CartPage />} />
+      <Route path="/checkout" element={<CheckoutPage />} />
+
+      {/* Pages publiques - Promotions et Nouveautés */}
+      <Route path="/promotions" element={<PromotionsPage />} />
+      <Route path="/nouveautes" element={<NouveautesPage />} />
+
+      {/* Login */}
+      <Route
+        path="/login"
+        element={
+          isAdmin
+            ? <Navigate to="/admin" />
+            : <Login onLogin={handleLogin} />
+        }
+      />
+
+      {/* Routes admin protégées */}
+      <Route
+        path="/admin"
+        element={<ProtectedRoute><DashboardAdmin /></ProtectedRoute>}
+      />
+      <Route
+        path="/overview"
+        element={<ProtectedRoute><DashboardOverview /></ProtectedRoute>}
+      />
+      <Route
+        path="/caisse"
+        element={<ProtectedRoute><Caisse /></ProtectedRoute>}
+      />
+      <Route
+        path="/stock"
+        element={<ProtectedRoute><StockPage /></ProtectedRoute>}
+      />
+      <Route
+        path="/ventes"
+        element={<ProtectedRoute><VentesPage /></ProtectedRoute>}
+      />
+    </Routes>
+  );
 
   return (
     <BrowserRouter>
       <Suspense fallback={<div>Chargement...</div>}>
-        {HeaderToShow}
         <ScrollToTop />
 
-        <Routes>
-        {/* Page d'accueil */}
-        <Route path="/" element={<><HeroSection /><CategorySection /></>} />
-        
-        {/* Liste de tous les produits */}
-        <Route path="/produits" element={<ProduitsPage />} />
-
-        {/* Route 404 */}
-        <Route path="*" element={<NotFoundPage />} />
-        
-        {/* Détail d'un produit - IMPORTANT: AVANT la route catégorie */}
-        <Route path="/produit/:id" element={<ProduitDetail />} />
-        
-        {/* Produits par catégorie */}
-        <Route path="/produits/categorie/:categorieId" element={<ProduitsPage />} />
-        
-        {/* Autres pages */}
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        
-        {/* Pages publiques - Promotions et Nouveautés */}
-        <Route path="/promotions" element={<PromotionsPage />} />
-        <Route path="/nouveautes" element={<NouveautesPage />} />
-        
-        {/* Login */}
-        <Route
-          path="/login"
-          element={
-            user?.role === 'admin'
-              ? <Navigate to="/admin" />
-              : <Login onLogin={handleLogin} />
-          }
-        />
-        
-        {/* Routes admin protégées */}
-        <Route
-          path="/admin"
-          element={<ProtectedRoute><DashboardAdmin /></ProtectedRoute>}
-        />
-        <Route
-          path="/overview"
-          element={<ProtectedRoute><DashboardOverview /></ProtectedRoute>}
-        />
-        <Route
-          path="/caisse"
-          element={<ProtectedRoute><Caisse /></ProtectedRoute>}
-        />
-        <Route
-          path="/stock"
-          element={<ProtectedRoute><StockPage /></ProtectedRoute>}
-        />
-        <Route
-          path="/ventes"
-          element={<ProtectedRoute><VentesPage /></ProtectedRoute>}
-        />
-        </Routes>
-
-        <Footer />
+        {isAdmin ? (
+          <AdminLayout onLogout={handleLogout}>
+            {routesElement}
+          </AdminLayout>
+        ) : (
+          <>
+            <Header />
+            {routesElement}
+            <Footer />
+          </>
+        )}
       </Suspense>
     </BrowserRouter>
   );

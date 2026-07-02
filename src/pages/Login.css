@@ -5,24 +5,26 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #f0f2f5;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--admin-bg, #f7f8fa);
+  font-family: var(--admin-font, system-ui, sans-serif);
 }
 
 .login-container {
-  background: #fff;
-  padding: 40px 50px;
-  border-radius: 12px;
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+  background: var(--admin-surface, #fff);
+  padding: 40px;
+  border-radius: var(--admin-radius-lg, 14px);
+  border: 1px solid var(--admin-border, #e5e7eb);
+  box-shadow: var(--admin-shadow-lg, 0 12px 32px rgba(16, 24, 40, 0.14));
   width: 100%;
-  max-width: 400px;
+  max-width: 380px;
   text-align: center;
 }
 
 .login-container h1 {
   margin-bottom: 25px;
-  color: #111;
-  font-size: 26px;
+  color: var(--admin-text, #111827);
+  font-size: 22px;
+  font-weight: 700;
 }
 
 .login-container form {
@@ -32,36 +34,36 @@
 }
 
 .login-container input {
-  padding: 12px 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
+  padding: 11px 14px;
+  border: 1px solid var(--admin-border-strong, #d1d5db);
+  border-radius: var(--admin-radius-sm, 6px);
+  font-size: 15px;
   outline: none;
-  transition: border 0.2s;
+  transition: border-color 0.15s ease;
 }
 
 .login-container input:focus {
-  border-color: #0077b6;
+  border-color: var(--admin-accent, #4f46e5);
 }
 
 .login-container button {
   padding: 12px 15px;
   border: none;
-  border-radius: 8px;
-  background: #0077b6;
+  border-radius: var(--admin-radius-sm, 6px);
+  background: var(--admin-accent, #4f46e5);
   color: #fff;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.15s ease;
 }
 
 .login-container button:hover {
-  background: #005f87;
+  background: var(--admin-accent-hover, #4338ca);
 }
 
 .login-container .error {
-  color: #e10600;
+  color: var(--admin-danger, #dc2626);
   font-size: 14px;
-  margin-top: -10px;
+  margin-top: -4px;
 }
