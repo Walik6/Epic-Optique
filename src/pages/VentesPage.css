@@ -83,7 +83,7 @@
 }
 
 /* Filtres */
-.filters {
+.ventes-filters {
   background: var(--admin-surface);
   border: 1px solid var(--admin-border);
   padding: var(--admin-space-3);
@@ -91,7 +91,7 @@
   margin-bottom: var(--admin-space-4);
 }
 
-.filters select {
+.ventes-filters select {
   padding: 9px 12px;
   border: 1px solid var(--admin-border-strong);
   border-radius: var(--admin-radius-sm);
@@ -100,7 +100,7 @@
   transition: border-color 0.15s ease;
 }
 
-.filters select:focus {
+.ventes-filters select:focus {
   outline: none;
   border-color: var(--admin-accent);
 }
@@ -185,43 +185,6 @@
   color: #fff;
 }
 
-/* Pagination */
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--admin-space-4);
-  padding: var(--admin-space-4);
-}
-
-.pagination button {
-  padding: 10px 20px;
-  background: var(--admin-accent);
-  color: #fff;
-  border: none;
-  border-radius: var(--admin-radius-sm);
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  transition: background 0.15s ease;
-}
-
-.pagination button:hover:not(:disabled) {
-  background: var(--admin-accent-hover);
-}
-
-.pagination button:disabled {
-  background: var(--admin-border);
-  color: var(--admin-text-subtle);
-  cursor: not-allowed;
-}
-
-.pagination span {
-  font-size: 14px;
-  color: var(--admin-text-muted);
-  font-weight: 500;
-}
-
 /* ============================================
    MODAL DETAIL VENTE
    ============================================ */
@@ -236,15 +199,7 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(17, 24, 39, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  padding: var(--admin-space-4);
+.ventes-page .admin-modal-overlay {
   animation: fadeIn 0.15s ease-out;
   overflow-y: auto;
 }
@@ -283,7 +238,7 @@
   gap: var(--admin-space-2);
 }
 
-.close-btn {
+.ventes-modal-close {
   background: rgba(255, 255, 255, 0.2);
   border: none;
   color: white;
@@ -300,7 +255,7 @@
   padding: 0;
 }
 
-.close-btn:hover {
+.ventes-modal-close:hover {
   background: rgba(255, 255, 255, 0.3);
 }
 
@@ -402,29 +357,19 @@
   color: var(--admin-success);
 }
 
-.modal-actions {
+.details-modal .admin-modal-actions {
   position: sticky;
   bottom: 0;
   background: var(--admin-surface);
   padding: var(--admin-space-4) var(--admin-space-5);
+  margin-top: 0;
   border-top: 1px solid var(--admin-border);
 }
 
-.modal-actions button {
+.details-modal .admin-modal-actions .admin-btn {
   width: 100%;
   padding: 12px;
-  border: none;
-  border-radius: var(--admin-radius-sm);
-  cursor: pointer;
   font-size: 15px;
-  font-weight: 600;
-  transition: background 0.15s ease;
-  background: var(--admin-accent);
-  color: white;
-}
-
-.modal-actions button:hover {
-  background: var(--admin-accent-hover);
 }
 
 /* Responsive */
@@ -483,7 +428,7 @@
   to { transform: translateY(20px); opacity: 0; }
 }
 
-.modal-overlay.closing {
+.ventes-page .admin-modal-overlay.closing {
   animation: fadeOut 0.15s ease-out forwards;
 }
 

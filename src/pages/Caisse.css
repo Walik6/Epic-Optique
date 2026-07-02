@@ -10,14 +10,6 @@
   font-weight: 700;
 }
 
-.notification {
-  background: var(--admin-success);
-  color: white;
-  padding: 10px 15px;
-  border-radius: var(--admin-radius-sm);
-  margin-bottom: var(--admin-space-3);
-}
-
 /* ===== LAYOUT ===== */
 .caisse-layout {
   display: grid;
@@ -37,14 +29,14 @@
   box-shadow: var(--admin-shadow-sm);
 }
 
-.filters {
+.caisse-filters {
   display: flex;
   gap: var(--admin-space-2);
   margin-bottom: var(--admin-space-3);
 }
 
-.filters input,
-.filters select {
+.caisse-filters input,
+.caisse-filters select {
   padding: 9px 12px;
   border-radius: var(--admin-radius-sm);
   border: 1px solid var(--admin-border-strong);
@@ -53,8 +45,8 @@
   font-size: 14px;
 }
 
-.filters input:focus,
-.filters select:focus {
+.caisse-filters input:focus,
+.caisse-filters select:focus {
   border-color: var(--admin-accent);
   outline: none;
 }
@@ -224,37 +216,57 @@
 }
 
 /* ===== MODAL REÇU ===== */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(17, 24, 39, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: var(--admin-space-4);
-}
-
-.modal-box {
-  background: var(--admin-surface);
-  padding: var(--admin-space-5);
-  width: 320px;
-  max-width: 100%;
-  border-radius: var(--admin-radius-lg);
+.receipt-modal {
+  max-width: 380px;
   text-align: center;
-  box-shadow: var(--admin-shadow-lg);
 }
 
-.modal-box button {
-  margin-top: var(--admin-space-3);
-  padding: 10px;
-  width: 100%;
-  border: none;
-  background: var(--admin-accent);
-  color: white;
+.receipt-icon {
+  color: var(--admin-success);
+  margin-bottom: var(--admin-space-2);
+}
+
+.receipt-modal h2 {
+  text-align: center;
+}
+
+.receipt-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--admin-space-2);
+  margin: var(--admin-space-4) 0;
+  text-align: left;
+}
+
+.receipt-item {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--admin-space-3);
+  padding: var(--admin-space-2) var(--admin-space-3);
+  background: var(--admin-bg);
   border-radius: var(--admin-radius-sm);
-  cursor: pointer;
-  font-weight: 600;
+  font-size: 14px;
+}
+
+.receipt-qty {
+  color: var(--admin-text-muted);
+  font-size: 13px;
+}
+
+.receipt-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--admin-space-3) var(--admin-space-4);
+  background: var(--admin-success-soft);
+  border-radius: var(--admin-radius-md);
+  font-weight: 700;
+  color: var(--admin-success);
+  font-size: 16px;
+}
+
+.receipt-modal .admin-modal-actions .admin-btn {
+  width: 100%;
 }
 
 /* ===== PAGINATION ===== */

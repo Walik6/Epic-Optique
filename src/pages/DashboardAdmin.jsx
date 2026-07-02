@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaMapMarkerAlt, FaPhoneAlt, FaEye, FaTrash, FaCommentDots } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaPhoneAlt, FaEye, FaTrash, FaCommentDots, FaTimes } from 'react-icons/fa';
 import './DashboardAdmin.css';
 import useAdminAuth from '../hooks/useAdminAuth';
 
@@ -66,7 +66,7 @@ const DashboardAdmin = () => {
   return (
     <div className="dashboard-admin">
       <h1>Commandes</h1>
-      {message && <div className="notification">{message}</div>}
+      {message && <div className="admin-notification">{message}</div>}
 
       {commandes.length === 0 ? (
         <p className="empty-state">Aucune commande pour le moment.</p>
@@ -114,7 +114,7 @@ const DashboardAdmin = () => {
       )}
 
       {/* 🔹 PAGINATION */}
-      <div className="pagination">
+      <div className="admin-pagination">
         <button
           onClick={() => setPage(p => Math.max(1, p - 1))}
           disabled={page === 1}
@@ -133,30 +133,35 @@ const DashboardAdmin = () => {
       </div>
 
       {detailCommande && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal" onClick={e => e.stopPropagation()}>
+        <div className="admin-modal-overlay" onClick={closeModal}>
+          <div className="admin-modal" onClick={e => e.stopPropagation()}>
+            <button className="admin-modal-close" onClick={closeModal} aria-label="Fermer"><FaTimes size={14} /></button>
             <h2>Détails commande #{detailCommande.id}</h2>
-            <p>
+            <p className="commande-detail-comment">
               <strong>Commentaire :</strong>{" "}
               {commandes.find(c => c.id === detailCommande.id)?.commentaire || '-'}
             </p>
 
-            <table>
-              <thead>
-                <tr><th>Produit</th><th>Quantité</th><th>Prix</th></tr>
-              </thead>
-              <tbody>
-                {detailCommande.items.map(item => (
-                  <tr key={item.produit_id}>
-                    <td>{item.nom}</td>
-                    <td>{item.quantite}</td>
-                    <td>{item.prix.toLocaleString('fr-FR')} DZD</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div className="admin-table-wrap">
+              <table className="admin-table">
+                <thead>
+                  <tr><th>Produit</th><th>Quantité</th><th>Prix</th></tr>
+                </thead>
+                <tbody>
+                  {detailCommande.items.map(item => (
+                    <tr key={item.produit_id}>
+                      <td>{item.nom}</td>
+                      <td>{item.quantite}</td>
+                      <td>{item.prix.toLocaleString('fr-FR')} DZD</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-            <button className="close-btn" onClick={closeModal}>Fermer</button>
+            <div className="admin-modal-actions">
+              <button className="admin-btn secondary" onClick={closeModal}>Fermer</button>
+            </div>
           </div>
         </div>
       )}

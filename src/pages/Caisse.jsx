@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaImage, FaMinus, FaPlus } from 'react-icons/fa';
+import { FaImage, FaMinus, FaPlus, FaCheckCircle } from 'react-icons/fa';
 import './Caisse.css';
 import useAdminAuth from '../hooks/useAdminAuth';
 import PriceTag, { PromoBadge } from '../components/PriceTag';
@@ -109,13 +109,13 @@ const CaissePage = () => {
 
   return (
     <div className="caisse-page">
-      <h1>🛒 Caisse</h1>
-      {message && <div className="notification">{message}</div>}
+      <h1>Caisse</h1>
+      {message && <div className="admin-notification">{message}</div>}
 
       <div className="caisse-layout">
         {/* PRODUITS */}
         <div className="produits-zone">
-          <div className="filters">
+          <div className="caisse-filters">
             <input
               placeholder="Rechercher..."
               value={searchTerm}
@@ -188,14 +188,25 @@ const CaissePage = () => {
 
       {/* REÇU */}
       {showReceipt && lastVente && (
-        <div className="modal" onClick={() => setShowReceipt(false)}>
-          <div className="modal-box" onClick={e => e.stopPropagation()}>
+        <div className="admin-modal-overlay" onClick={() => setShowReceipt(false)}>
+          <div className="admin-modal receipt-modal" onClick={e => e.stopPropagation()}>
+            <div className="receipt-icon"><FaCheckCircle size={28} /></div>
             <h2>Vente confirmée</h2>
-            {lastVente.items.map((i, idx) => (
-              <div key={idx}>{i.nom} x{i.quantite_vendue}</div>
-            ))}
-            <strong>Total : {lastVente.total.toLocaleString()} DZD</strong>
-            <button onClick={() => setShowReceipt(false)}>Fermer</button>
+            <div className="receipt-items">
+              {lastVente.items.map((i, idx) => (
+                <div key={idx} className="receipt-item">
+                  <span>{i.nom} <span className="receipt-qty">×{i.quantite_vendue}</span></span>
+                  <span>{(i.prix * i.quantite_vendue).toLocaleString('fr-FR')} DZD</span>
+                </div>
+              ))}
+            </div>
+            <div className="receipt-total">
+              <span>Total</span>
+              <strong>{lastVente.total.toLocaleString('fr-FR')} DZD</strong>
+            </div>
+            <div className="admin-modal-actions">
+              <button className="admin-btn primary" onClick={() => setShowReceipt(false)}>Fermer</button>
+            </div>
           </div>
         </div>
       )}

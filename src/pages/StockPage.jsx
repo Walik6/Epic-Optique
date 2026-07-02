@@ -333,11 +333,11 @@ const StockPage = () => {
   return (
     <div className="stock-page">
       <h1>Gestion du Stock</h1>
-      {message && <div className="notification">{message}</div>}
+      {message && <div className="admin-notification">{message}</div>}
 
       <div className="search-filter">
-        <div className="filters">
-          <div className="search-input">
+        <div className="stock-filters">
+          <div className="stock-search-input">
             <FaSearch size={13} />
             <input
               placeholder="Recherche..."
@@ -412,15 +412,16 @@ const StockPage = () => {
       </div>
       )}
 
-      <div className="pagination">
+      <div className="admin-pagination">
         <button onClick={() => setCurrentPage(prev => prev - 1)} disabled={currentPage <= 1}>Précédent</button>
         <span>{currentPage} / {totalPages}</span>
         <button onClick={() => setCurrentPage(prev => prev + 1)} disabled={currentPage >= totalPages}>Suivant</button>
       </div>
 
       {modalOpen && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal modal-large" onClick={e => e.stopPropagation()}>
+        <div className="admin-modal-overlay" onClick={closeModal}>
+          <div className="admin-modal large" onClick={e => e.stopPropagation()}>
+            <button className="admin-modal-close" onClick={closeModal} aria-label="Fermer"><FaTimes size={14} /></button>
             <h2>{form.id ? 'Modifier Produit' : 'Ajouter Produit'}</h2>
             <form className="modal-form" onSubmit={handleSubmit}>
               <input name="nom" placeholder="Nom produit" value={form.nom} onChange={handleChange} required/>
@@ -514,11 +515,11 @@ const StockPage = () => {
                 )}
               </div>
 
-              <div className="modal-actions">
-                <button type="submit" disabled={uploading}>
+              <div className="admin-modal-actions">
+                <button type="button" className="admin-btn secondary" onClick={closeModal}>Annuler</button>
+                <button type="submit" className="admin-btn primary" disabled={uploading}>
                   {uploading ? '⏳ Upload en cours...' : (form.id ? 'Modifier' : 'Ajouter')}
                 </button>
-                <button type="button" onClick={closeModal}>Annuler</button>
               </div>
             </form>
           </div>

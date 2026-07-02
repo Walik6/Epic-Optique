@@ -223,6 +223,7 @@
 }
 
 .admin-modal {
+  position: relative;
   background: var(--admin-surface);
   border-radius: var(--admin-radius-lg);
   box-shadow: var(--admin-shadow-lg);
@@ -231,6 +232,106 @@
   max-height: 85vh;
   overflow-y: auto;
   padding: var(--admin-space-5);
+}
+
+.admin-modal.large {
+  max-width: 700px;
+}
+
+.admin-modal h2 {
+  margin: 0 0 var(--admin-space-4);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--admin-text);
+}
+
+.admin-modal-close {
+  position: absolute;
+  top: var(--admin-space-3);
+  right: var(--admin-space-3);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--admin-bg);
+  color: var(--admin-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.admin-modal-close:hover {
+  background: var(--admin-border);
+  color: var(--admin-text);
+}
+
+.admin-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--admin-space-2);
+  margin-top: var(--admin-space-4);
+}
+
+/* ===== Notifications (toast) ===== */
+.admin-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--admin-text);
+  color: #fff;
+  padding: var(--admin-space-3) var(--admin-space-4);
+  border-radius: var(--admin-radius-sm);
+  box-shadow: var(--admin-shadow-md);
+  z-index: 1100;
+  font-weight: 600;
+  font-size: 14px;
+  animation: admin-notification-fade 3s forwards;
+}
+
+@keyframes admin-notification-fade {
+  0% { opacity: 0; transform: translateY(-8px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ===== Pagination ===== */
+.admin-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--admin-space-4);
+  margin-top: var(--admin-space-5);
+}
+
+.admin-pagination button {
+  padding: 10px 18px;
+  border-radius: var(--admin-radius-sm);
+  border: 1px solid var(--admin-border-strong);
+  background: var(--admin-surface);
+  color: var(--admin-text);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.admin-pagination button:hover:not(:disabled) {
+  background: var(--admin-bg);
+  border-color: var(--admin-text-subtle);
+}
+
+.admin-pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.admin-pagination span {
+  font-weight: 600;
+  color: var(--admin-text-muted);
+  font-size: 14px;
 }
 
 /* ===== État vide ===== */

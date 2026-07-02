@@ -134,7 +134,7 @@ const VentesPage = () => {
       </div>
 
       {/* Filtres */}
-      <div className="filters">
+      <div className="ventes-filters">
         <select value={filterDate} onChange={(e) => {
           setFilterDate(e.target.value);
           setCurrentPage(1);
@@ -184,8 +184,8 @@ const VentesPage = () => {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="pagination">
-          <button 
+        <div className="admin-pagination">
+          <button
             onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))} 
             disabled={currentPage <= 1}
           >
@@ -203,11 +203,11 @@ const VentesPage = () => {
 
       {/* Modal Détails - VERSION AMÉLIORÉE */}
       {selectedVente && (
-        <div 
-          className={`modal-overlay ${isClosing ? 'closing' : ''}`}
+        <div
+          className={`admin-modal-overlay ${isClosing ? 'closing' : ''}`}
           onClick={closeModal}
         >
-          <div 
+          <div
             className={`details-modal ${isClosing ? 'closing' : ''}`}
             onClick={e => e.stopPropagation()}
           >
@@ -215,7 +215,7 @@ const VentesPage = () => {
             <div className="modal-header">
               <h2><FaReceipt size={16} /> Détails de la vente</h2>
               <button
-                className="close-btn"
+                className="ventes-modal-close"
                 onClick={closeModal}
                 aria-label="Fermer"
               >
@@ -267,8 +267,8 @@ const VentesPage = () => {
             </div>
 
             {/* Actions (bouton fermer) */}
-            <div className="modal-actions">
-              <button onClick={closeModal}>Fermer</button>
+            <div className="admin-modal-actions">
+              <button className="admin-btn primary" onClick={closeModal}>Fermer</button>
             </div>
           </div>
         </div>

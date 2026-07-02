@@ -13,18 +13,6 @@
   color: var(--admin-text);
 }
 
-.notification {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: var(--admin-success);
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: var(--admin-radius-sm);
-  z-index: 1000;
-  box-shadow: var(--admin-shadow-md);
-}
-
 .search-filter {
   display: flex;
   justify-content: space-between;
@@ -34,13 +22,13 @@
   gap: var(--admin-space-3);
 }
 
-.filters {
+.stock-filters {
   display: flex;
   gap: var(--admin-space-2);
   flex-wrap: wrap;
 }
 
-.search-input {
+.stock-search-input {
   display: flex;
   align-items: center;
   gap: var(--admin-space-2);
@@ -52,12 +40,12 @@
   transition: border-color 0.15s ease;
 }
 
-.search-input:focus-within {
+.stock-search-input:focus-within {
   border-color: var(--admin-accent);
   color: var(--admin-text-muted);
 }
 
-.search-input input {
+.stock-search-input input {
   border: none;
   padding: 9px 0;
   font-size: 14px;
@@ -235,44 +223,7 @@
   width: 36px;
 }
 
-/* ========== MODAL STYLES ========== */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(17, 24, 39, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  padding: var(--admin-space-4);
-}
-
-.modal {
-  background: var(--admin-surface);
-  padding: var(--admin-space-5);
-  border-radius: var(--admin-radius-lg);
-  width: 100%;
-  max-width: 500px;
-  color: var(--admin-text);
-  max-height: 85vh;
-  overflow-y: auto;
-  box-shadow: var(--admin-shadow-lg);
-}
-
-.modal h2 {
-  margin-top: 0;
-  margin-bottom: var(--admin-space-4);
-  font-size: 18px;
-  color: var(--admin-text);
-}
-
-.modal-large {
-  max-width: 700px !important;
-}
-
+/* ========== FORMULAIRE MODALE ========== */
 .modal-form input,
 .modal-form select {
   width: 100%;
@@ -306,82 +257,6 @@
 .promo-toggle input {
   width: auto;
   margin: 0;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--admin-space-2);
-  margin-top: var(--admin-space-4);
-}
-
-.modal-actions button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: var(--admin-radius-sm);
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  transition: background 0.15s ease;
-}
-
-.modal-actions button:first-child {
-  background: var(--admin-accent);
-  color: #fff;
-}
-
-.modal-actions button:first-child:hover {
-  background: var(--admin-accent-hover);
-}
-
-.modal-actions button:first-child:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.modal-actions button:last-child {
-  background: var(--admin-bg);
-  color: var(--admin-text);
-  border: 1px solid var(--admin-border-strong);
-}
-
-.modal-actions button:last-child:hover {
-  background: var(--admin-border);
-}
-
-/* ========== PAGINATION ========== */
-.pagination {
-  text-align: center;
-  margin-top: var(--admin-space-4);
-}
-
-.pagination button {
-  padding: 8px 16px;
-  margin: 0 5px;
-  border: none;
-  border-radius: var(--admin-radius-sm);
-  cursor: pointer;
-  background: var(--admin-accent);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  transition: background 0.15s ease;
-}
-
-.pagination button:hover:not(:disabled) {
-  background: var(--admin-accent-hover);
-}
-
-.pagination button:disabled {
-  background: var(--admin-border);
-  color: var(--admin-text-subtle);
-  cursor: not-allowed;
-}
-
-.pagination span {
-  margin: 0 10px;
-  font-weight: 600;
-  color: var(--admin-text);
 }
 
 /* ========== IMAGES SECTION (DANS LE MODAL) ========== */
@@ -576,8 +451,8 @@
     max-width: calc(50% - 8px);
   }
 
-  .modal-large {
-    max-width: 95% !important;
+  .admin-modal.large {
+    max-width: 95%;
     padding: var(--admin-space-4);
   }
 }
