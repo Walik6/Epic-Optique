@@ -1,0 +1,34 @@
+.trust-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  padding: 28px 20px;
+  background: #fafafa;
+  border-bottom: 1px solid #eee;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.trust-item svg {
+  color: #111;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .trust-bar {
+    gap: 20px;
+    padding: 20px 16px;
+  }
+
+  .trust-item {
+    font-size: 12px;
+  }
+}

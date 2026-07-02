@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import useSEO from '../hooks/useSEO';
 import HeroSection from '../components/HeroSection';
+import TrustBar from '../components/TrustBar';
 import CategorySection from '../components/CategorySection';
 import ProductCarousel from '../components/ProductCarousel';
 
@@ -34,9 +35,10 @@ export default function Home() {
   return (
     <>
       <HeroSection />
+      <TrustBar />
       <CategorySection />
-      <ProductCarousel title="Nouveautés" produits={nouveautes} />
       <ProductCarousel title="Promotions" produits={promotions} />
+      <ProductCarousel title="Nouveautés" produits={nouveautes} />
     </>
   );
 }

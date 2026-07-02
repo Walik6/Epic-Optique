@@ -70,6 +70,10 @@
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
+  .hero {
+    height: 70vh;
+  }
+
   .hero-content h1 {
     font-size: 2.8rem;
   }
