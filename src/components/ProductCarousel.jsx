@@ -17,7 +17,9 @@ export default function ProductCarousel({ title, produits }) {
   const scroll = (direction) => {
     const el = scrollRef.current;
     if (!el) return;
-    el.scrollBy({ left: direction * el.clientWidth * 0.8, behavior: 'smooth' });
+    // Fait defiler d'une page complete (les produits visibles), pas d'un
+    // simple pas partiel.
+    el.scrollBy({ left: direction * el.clientWidth, behavior: 'smooth' });
   };
 
   return (
