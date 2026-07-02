@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaPen, FaTrash, FaImage, FaPlus, FaSearch, FaTimes, FaCamera, FaStar } from 'react-icons/fa';
+import { FaPen, FaTrash, FaImage, FaPlus, FaMinus, FaSearch, FaTimes, FaCamera, FaStar } from 'react-icons/fa';
 import './StockPage.css';
 import useAdminAuth from '../hooks/useAdminAuth';
 
@@ -346,6 +346,9 @@ const StockPage = () => {
         </button>
       </div>
 
+      {produits.length === 0 ? (
+        <p className="empty-state">Aucun produit trouvé.</p>
+      ) : (
       <div className="stock-grid">
         {produits.map(p => (
           <div key={p.id} className={`stock-card ${p.quantite === 0 ? 'out-of-stock' : ''}`}>
@@ -371,9 +374,13 @@ const StockPage = () => {
               <p className="stock-card-price">{p.prix.toLocaleString('fr-FR')} DZD</p>
 
               <div className="stock-card-qty">
-                <button onClick={() => updateQuantite(p.id, p.quantite - 1)} disabled={p.quantite <= 0}>−</button>
+                <button onClick={() => updateQuantite(p.id, p.quantite - 1)} disabled={p.quantite <= 0} aria-label="Diminuer">
+                  <FaMinus size={10} />
+                </button>
                 <span className={p.quantite === 0 ? 'zero-stock' : ''}>{p.quantite}</span>
-                <button onClick={() => updateQuantite(p.id, p.quantite + 1)}>+</button>
+                <button onClick={() => updateQuantite(p.id, p.quantite + 1)} aria-label="Augmenter">
+                  <FaPlus size={10} />
+                </button>
               </div>
             </div>
 
@@ -388,6 +395,7 @@ const StockPage = () => {
           </div>
         ))}
       </div>
+      )}
 
       <div className="pagination">
         <button onClick={() => setCurrentPage(prev => prev - 1)} disabled={currentPage <= 1}>Précédent</button>

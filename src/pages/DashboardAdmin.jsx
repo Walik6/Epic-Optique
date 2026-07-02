@@ -68,6 +68,9 @@ const DashboardAdmin = () => {
       <h1>Commandes</h1>
       {message && <div className="notification">{message}</div>}
 
+      {commandes.length === 0 ? (
+        <p className="empty-state">Aucune commande pour le moment.</p>
+      ) : (
       <div className="commandes-list">
         {commandes.map(cmd => (
           <div key={cmd.id} className="commande-card">
@@ -108,6 +111,7 @@ const DashboardAdmin = () => {
           </div>
         ))}
       </div>
+      )}
 
       {/* 🔹 PAGINATION */}
       <div className="pagination">

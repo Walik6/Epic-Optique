@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaImage } from 'react-icons/fa';
+import { FaImage, FaMinus, FaPlus } from 'react-icons/fa';
 import './Caisse.css';
 import useAdminAuth from '../hooks/useAdminAuth';
 
@@ -156,13 +156,17 @@ const CaissePage = () => {
             <div key={i.id} className="panier-item">
               <span>{i.nom}</span>
               <div className="qte">
-                <button onClick={() => modifierQuantite(i.id, i.quantite_vendue - 1)}>−</button>
+                <button onClick={() => modifierQuantite(i.id, i.quantite_vendue - 1)} aria-label="Diminuer">
+                  <FaMinus size={9} />
+                </button>
                 <input
                   type="number"
                   value={i.quantite_vendue}
                   onChange={e => modifierQuantite(i.id, +e.target.value)}
                 />
-                <button onClick={() => modifierQuantite(i.id, i.quantite_vendue + 1)}>+</button>
+                <button onClick={() => modifierQuantite(i.id, i.quantite_vendue + 1)} aria-label="Augmenter">
+                  <FaPlus size={9} />
+                </button>
               </div>
               <span>{(i.prix * i.quantite_vendue).toLocaleString()} DZD</span>
             </div>
