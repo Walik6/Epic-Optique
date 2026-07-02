@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './ProduitsPage.css';
 import { useCart } from '../context/CartContext';
 import useSEO from '../hooks/useSEO';
-import PriceTag, { PromoBadge } from '../components/PriceTag';
+import PriceTag, { ProductRibbon } from '../components/PriceTag';
 
 const ProduitsPage = () => {
   const { addToCart } = useCart();
@@ -36,7 +36,7 @@ const ProduitsPage = () => {
     const fetchProduits = async () => {
       setLoading(true);
       try {
-        let url = `${API_URL}/getProduits.php?page=${page}&limit=12&search=${encodeURIComponent(search)}&filter=${filter}`;
+        let url = `${API_URL}/getProduits.php?page=${page}&limit=12&search=${encodeURIComponent(search)}&filter=${filter}&show_out_of_stock=true`;
         if (categorieId) url += `&categorie=${categorieId}`;
         const res = await fetch(url);
         const data = await res.json();
@@ -101,12 +101,12 @@ const ProduitsPage = () => {
             {produits.map(prod => (
               <div
                 key={prod.id}
-                className="produit-card"
+                className={`produit-card ${prod.quantite === 0 ? 'out-of-stock' : ''}`}
                 onClick={() => navigate(`/produit/${prod.id}`)}
                 style={{ cursor: 'pointer' }}
               >
                 <div className="img-container">
-                  <PromoBadge produit={prod} />
+                  <ProductRibbon produit={prod} />
                   <img src={prod.image} alt={prod.nom} className="produit-img" />
                 </div>
 
@@ -115,9 +115,10 @@ const ProduitsPage = () => {
                   <p className="produit-prix"><PriceTag produit={prod} /></p>
                   <button
                     className="btn-panier"
+                    disabled={prod.quantite === 0}
                     onClick={(e) => { e.stopPropagation(); addToCart(prod); }}
                   >
-                    Ajouter au panier
+                    {prod.quantite === 0 ? 'Rupture de stock' : 'Ajouter au panier'}
                   </button>
                 </div>
               </div>

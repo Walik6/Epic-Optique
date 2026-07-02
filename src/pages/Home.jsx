@@ -17,7 +17,7 @@ export default function Home() {
   const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    fetch(`${API_URL}/getProduits.php`)
+    fetch(`${API_URL}/getProduits.php?show_out_of_stock=true`)
       .then(res => res.json())
       .then(data => {
         const list = Array.isArray(data) ? data : [];
@@ -25,7 +25,7 @@ export default function Home() {
       })
       .catch(() => setNouveautes([]));
 
-    fetch(`${API_URL}/getProduits.php?promo=true`)
+    fetch(`${API_URL}/getProduits.php?promo=true&show_out_of_stock=true`)
       .then(res => res.json())
       .then(data => setPromotions(Array.isArray(data) ? data : []))
       .catch(() => setPromotions([]));

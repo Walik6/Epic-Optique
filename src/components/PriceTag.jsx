@@ -9,6 +9,16 @@ export function PromoBadge({ produit }) {
   return <span className="promo-badge">-{discountPercent}%</span>;
 }
 
+// Rupture de stock si quantite = 0, sinon promo si active, sinon rien.
+// La rupture prime sur la promo : inutile d'afficher une reduction sur un
+// produit qu'on ne peut pas acheter.
+export function ProductRibbon({ produit }) {
+  if (Number(produit?.quantite) === 0) {
+    return <span className="stock-badge">Rupture de stock</span>;
+  }
+  return <PromoBadge produit={produit} />;
+}
+
 // Affichage du prix : juste le prix si pas de promo, sinon ancien prix barre
 // + nouveau prix en couleur.
 export default function PriceTag({ produit, compact = false }) {

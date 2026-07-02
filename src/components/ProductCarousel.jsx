@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
-import PriceTag, { PromoBadge } from './PriceTag';
+import PriceTag, { ProductRibbon } from './PriceTag';
 import './ProductCarousel.css';
 
 // Carrousel de produits en scroll horizontal natif (scroll-snap), sans
@@ -34,20 +34,21 @@ export default function ProductCarousel({ title, produits }) {
         {produits.map(p => (
           <div
             key={p.id}
-            className="carousel-card"
+            className={`carousel-card ${p.quantite === 0 ? 'out-of-stock' : ''}`}
             onClick={() => navigate(`/produit/${p.id}`)}
           >
             <div className="carousel-card-image">
-              <PromoBadge produit={p} />
+              <ProductRibbon produit={p} />
               {p.image ? <img src={p.image} alt={p.nom} /> : <div className="carousel-card-noimage" />}
             </div>
             <h3>{p.nom}</h3>
             <PriceTag produit={p} />
             <button
               className="carousel-card-btn"
+              disabled={p.quantite === 0}
               onClick={(e) => { e.stopPropagation(); addToCart(p); }}
             >
-              Ajouter au panier
+              {p.quantite === 0 ? 'Rupture de stock' : 'Ajouter au panier'}
             </button>
           </div>
         ))}

@@ -123,6 +123,16 @@
   background: #333;
 }
 
+.carousel-card-btn:disabled {
+  background: #ccc;
+  color: #777;
+  cursor: not-allowed;
+}
+
+.carousel-card.out-of-stock .carousel-card-image img {
+  opacity: 0.6;
+}
+
 @media (max-width: 600px) {
   .product-carousel {
     padding: 24px 16px;

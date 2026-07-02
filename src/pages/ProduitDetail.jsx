@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import useSEO from '../hooks/useSEO';
-import PriceTag, { PromoBadge } from '../components/PriceTag';
+import PriceTag, { ProductRibbon } from '../components/PriceTag';
 import { getPromoInfo } from '../utils/pricing';
 import './ProduitDetail.css';
 
@@ -100,7 +100,7 @@ const ProduitDetail = () => {
         <div className="img-section">
           {/* Image principale */}
           <div className="main-image-container">
-            <PromoBadge produit={produit} />
+            <ProductRibbon produit={produit} />
             {imagePrincipale ? (
               <img
                 src={imagePrincipale}

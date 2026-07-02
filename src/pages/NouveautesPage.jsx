@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './NouveautesPage.css';
 import { useCart } from '../context/CartContext';
 import useSEO from '../hooks/useSEO';
-import PriceTag, { PromoBadge } from '../components/PriceTag';
+import PriceTag, { ProductRibbon } from '../components/PriceTag';
 
 const NouveautesPage = () => {
   const { addToCart } = useCart();
@@ -24,7 +24,7 @@ const NouveautesPage = () => {
   useEffect(() => {
     const fetchProduits = async () => {
       try {
-        const res = await fetch(`${API_URL}/getProduits.php`);
+        const res = await fetch(`${API_URL}/getProduits.php?show_out_of_stock=true`);
         const data = await res.json();
         setProduits(Array.isArray(data) ? data : []);
       } catch (err) {
@@ -48,8 +48,7 @@ const NouveautesPage = () => {
     fetchCategories();
   }, [API_URL]);
 
-  // Obtenir les 12 derniers produits (IDs les plus élevés)
-  // L'API getProduits.php filtre déjà les produits en rupture de stock (quantite > 0)
+  // Obtenir les 12 derniers produits (IDs les plus élevés), rupture de stock incluse
   const getNouveautes = () => {
     if (produits.length === 0) return [];
     
@@ -73,14 +72,14 @@ const NouveautesPage = () => {
           {nouveautes.map(prod => (
             <div
               key={prod.id}
-              className="produit-card"
+              className={`produit-card ${prod.quantite === 0 ? 'out-of-stock' : ''}`}
               onClick={() => navigate(`/produit/${prod.id}`)}
               style={{ cursor: 'pointer' }}
             >
               <div className="new-badge-top">✨ NOUVEAU</div>
 
               <div className="img-container">
-                <PromoBadge produit={prod} />
+                <ProductRibbon produit={prod} />
                 <img src={prod.image} alt={prod.nom} className="produit-img" />
               </div>
 
@@ -89,9 +88,10 @@ const NouveautesPage = () => {
                 <p className="produit-prix"><PriceTag produit={prod} /></p>
                 <button
                   className="btn-panier"
+                  disabled={prod.quantite === 0}
                   onClick={(e) => { e.stopPropagation(); addToCart(prod); }}
                 >
-                  Ajouter au panier
+                  {prod.quantite === 0 ? 'Rupture de stock' : 'Ajouter au panier'}
                 </button>
               </div>
             </div>

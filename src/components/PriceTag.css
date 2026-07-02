@@ -1,15 +1,25 @@
-.promo-badge {
+.promo-badge,
+.stock-badge {
   position: absolute;
   top: 10px;
   left: 10px;
-  background: #e10600;
-  color: #fff;
   font-size: 12px;
   font-weight: 700;
   padding: 4px 9px;
   border-radius: 6px;
   z-index: 2;
+}
+
+.promo-badge {
+  background: #e10600;
+  color: #fff;
   box-shadow: 0 2px 6px rgba(225, 6, 0, 0.35);
+}
+
+.stock-badge {
+  background: #1a1a1a;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .price-tag {
