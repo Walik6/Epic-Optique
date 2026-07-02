@@ -166,11 +166,14 @@
 }
 
 .details-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   background: var(--admin-accent-soft);
   color: var(--admin-accent);
   border: none;
   padding: 8px 16px;
-  border-radius: var(--admin-radius-sm);
+  border-radius: var(--admin-radius-md);
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
@@ -275,6 +278,9 @@
   margin: 0;
   font-size: 18px;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--admin-space-2);
 }
 
 .close-btn {

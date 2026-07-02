@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaWallet, FaCalendarDay, FaCalendarAlt } from 'react-icons/fa';
+import { FaWallet, FaCalendarDay, FaCalendarAlt, FaEye, FaTimes, FaReceipt } from 'react-icons/fa';
 import './VentesPage.css';
 import useAdminAuth from '../hooks/useAdminAuth';
 
@@ -172,7 +172,7 @@ const VentesPage = () => {
                   <td className="total-cell">{parseFloat(v.total).toLocaleString('fr-FR')} DZD</td>
                   <td>
                     <button className="details-btn" onClick={() => voirDetails(v.id)}>
-                      👁️ Détails
+                      <FaEye size={12} /> Détails
                     </button>
                   </td>
                 </tr>
@@ -213,13 +213,13 @@ const VentesPage = () => {
           >
             {/* En-tête avec bouton de fermeture */}
             <div className="modal-header">
-              <h2>🧾 Détails de la vente</h2>
-              <button 
-                className="close-btn" 
+              <h2><FaReceipt size={16} /> Détails de la vente</h2>
+              <button
+                className="close-btn"
                 onClick={closeModal}
                 aria-label="Fermer"
               >
-                ×
+                <FaTimes size={16} />
               </button>
             </div>
 
@@ -268,7 +268,7 @@ const VentesPage = () => {
 
             {/* Actions (bouton fermer) */}
             <div className="modal-actions">
-              <button onClick={closeModal}>✓ Fermer</button>
+              <button onClick={closeModal}>Fermer</button>
             </div>
           </div>
         </div>

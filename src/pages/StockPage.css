@@ -13,21 +13,6 @@
   color: var(--admin-text);
 }
 
-.add-btn {
-  background: var(--admin-accent);
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: var(--admin-radius-sm);
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  transition: background 0.15s ease;
-}
-.add-btn:hover {
-  background: var(--admin-accent-hover);
-}
-
 .notification {
   position: fixed;
   top: 20px;
@@ -55,17 +40,41 @@
   flex-wrap: wrap;
 }
 
-.search-filter input,
+.search-input {
+  display: flex;
+  align-items: center;
+  gap: var(--admin-space-2);
+  padding: 0 12px;
+  border-radius: var(--admin-radius-md);
+  border: 1px solid var(--admin-border);
+  background: var(--admin-surface);
+  color: var(--admin-text-subtle);
+  transition: border-color 0.15s ease;
+}
+
+.search-input:focus-within {
+  border-color: var(--admin-accent);
+  color: var(--admin-text-muted);
+}
+
+.search-input input {
+  border: none;
+  padding: 9px 0;
+  font-size: 14px;
+  color: var(--admin-text);
+  background: transparent;
+  outline: none;
+}
+
 .search-filter select {
   padding: 9px 12px;
-  border-radius: var(--admin-radius-sm);
-  border: 1px solid var(--admin-border-strong);
+  border-radius: var(--admin-radius-md);
+  border: 1px solid var(--admin-border);
   font-size: 14px;
   color: var(--admin-text);
   background: var(--admin-surface);
 }
 
-.search-filter input:focus,
 .search-filter select:focus {
   outline: none;
   border-color: var(--admin-accent);
@@ -410,9 +419,13 @@
 }
 
 .main-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   background: var(--admin-warning-soft);
   color: var(--admin-warning);
-  padding: 3px 8px;
+  padding: 4px 8px;
   border-radius: 999px;
   font-size: 11px;
   font-weight: 700;
@@ -420,6 +433,10 @@
 }
 
 .image-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
   padding: 6px 10px;
   border: none;
   border-radius: var(--admin-radius-sm);
@@ -480,10 +497,15 @@
 }
 
 .file-item button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: var(--admin-danger-soft);
   color: var(--admin-danger);
   border: none;
-  padding: 4px 10px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
   border-radius: var(--admin-radius-sm);
   cursor: pointer;
   font-weight: 700;
@@ -498,11 +520,13 @@
 }
 
 .upload-btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--admin-space-2);
   padding: 10px 20px;
   background: var(--admin-accent);
   color: #fff;
-  border-radius: var(--admin-radius-sm);
+  border-radius: var(--admin-radius-md);
   cursor: pointer;
   font-weight: 600;
   font-size: 14px;

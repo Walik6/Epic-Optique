@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaPen, FaTrash, FaImage } from 'react-icons/fa';
+import { FaPen, FaTrash, FaImage, FaPlus, FaSearch, FaTimes, FaCamera, FaStar } from 'react-icons/fa';
 import './StockPage.css';
 import useAdminAuth from '../hooks/useAdminAuth';
 
@@ -323,23 +323,26 @@ const StockPage = () => {
 
       <div className="search-filter">
         <div className="filters">
-          <input
-            placeholder="🔍 Recherche..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-          />
+          <div className="search-input">
+            <FaSearch size={13} />
+            <input
+              placeholder="Recherche..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+          </div>
           <select value={filterCategory} onChange={handleFilterChange}>
             <option value="">Toutes les catégories</option>
             {categories.map(cat => <option key={cat.id} value={cat.id}>{cat.nom}</option>)}
           </select>
         </div>
-        <button className="add-btn" onClick={() => { 
-          setForm({ id:'', nom:'', prix:'', quantite:'', categorieId:'' }); 
+        <button className="admin-btn primary" onClick={() => {
+          setForm({ id:'', nom:'', prix:'', quantite:'', categorieId:'' });
           setProduitImages([]);
           setSelectedFiles([]);
-          setModalOpen(true); 
+          setModalOpen(true);
         }}>
-          ➕ Ajouter Produit
+          <FaPlus size={12} /> Ajouter Produit
         </button>
       </div>
 
@@ -423,14 +426,14 @@ const StockPage = () => {
                           <img src={img.image_url} alt="Produit" />
                           <div className="image-actions">
                             {img.est_principale ? (
-                              <span className="main-badge">⭐ Principale</span>
+                              <span className="main-badge"><FaStar size={10} /> Principale</span>
                             ) : (
                               <button type="button" onClick={() => setMainImage(img.id)}>
                                 Définir principale
                               </button>
                             )}
                             <button type="button" className="delete-img-btn" onClick={() => deleteExistingImage(img.id)}>
-                              × Supprimer
+                              <FaTrash size={10} /> Supprimer
                             </button>
                           </div>
                         </div>
@@ -446,7 +449,7 @@ const StockPage = () => {
                       {selectedFiles.map((file, index) => (
                         <div key={index} className="file-item">
                           <span>{file.name}</span>
-                          <button type="button" onClick={() => removeSelectedFile(index)}>×</button>
+                          <button type="button" onClick={() => removeSelectedFile(index)}><FaTimes size={12} /></button>
                         </div>
                       ))}
                     </div>
@@ -464,7 +467,7 @@ const StockPage = () => {
                       style={{ display: 'none' }}
                     />
                     <label htmlFor="file-upload" className="upload-btn">
-                      📷 Ajouter des images
+                      <FaCamera size={13} /> Ajouter des images
                     </label>
                   </div>
                 )}

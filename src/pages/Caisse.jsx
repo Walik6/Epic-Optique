@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaImage } from 'react-icons/fa';
 import './Caisse.css';
 import useAdminAuth from '../hooks/useAdminAuth';
 
@@ -130,7 +131,7 @@ const CaissePage = () => {
                 className={`produit-card ${p.quantite === 0 ? 'disabled' : ''}`}
                 onClick={() => ajouterAuPanier(p)}
               >
-                {p.image ? <img src={p.image} alt={p.nom}/> : <div className="no-image">📷</div>}
+                {p.image ? <img src={p.image} alt={p.nom}/> : <div className="no-image"><FaImage size={20} /></div>}
                 <h3>{p.nom}</h3>
                 <p>{p.prix.toLocaleString()} DZD</p>
                 <span className="stock">
