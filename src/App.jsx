@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Header from './components/Header';
-import AdminHeader from './components/AdminHeader';
 
 import HeroSection from './components/HeroSection';
 import CategorySection from './components/CategorySection';
@@ -15,19 +14,22 @@ import ProduitDetail from './pages/ProduitDetail';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import ContactPage from './pages/ContactPage';
-
-import DashboardAdmin from './pages/DashboardAdmin';
-import DashboardOverview from './pages/DashboardOverview';
-import Caisse from './pages/Caisse';
-import StockPage from './pages/StockPage';
-import VentesPage from './pages/VentesPage';
 import PromotionsPage from './pages/PromotionsPage';
 import NouveautesPage from './pages/NouveautesPage';
 
-import Login from './pages/Login';
-
 import ScrollToTop from './scrollToTop';
 import './App.css';
+
+// Chargées à la demande : jamais nécessaires pour un visiteur public,
+// inutile d'alourdir le bundle initial avec (recharts en particulier
+// est lourd et n'est utilisé que dans DashboardOverview).
+const AdminHeader = lazy(() => import('./components/AdminHeader'));
+const DashboardAdmin = lazy(() => import('./pages/DashboardAdmin'));
+const DashboardOverview = lazy(() => import('./pages/DashboardOverview'));
+const Caisse = lazy(() => import('./pages/Caisse'));
+const StockPage = lazy(() => import('./pages/StockPage'));
+const VentesPage = lazy(() => import('./pages/VentesPage'));
+const Login = lazy(() => import('./pages/Login'));
 
 function App() {
   const [user, setUser] = useState(null);
@@ -88,10 +90,11 @@ function App() {
 
   return (
     <BrowserRouter>
-      {HeaderToShow}
-      <ScrollToTop />
+      <Suspense fallback={<div>Chargement...</div>}>
+        {HeaderToShow}
+        <ScrollToTop />
 
-      <Routes>
+        <Routes>
         {/* Page d'accueil */}
         <Route path="/" element={<><HeroSection /><CategorySection /></>} />
         
@@ -143,13 +146,14 @@ function App() {
           path="/stock"
           element={<ProtectedRoute><StockPage /></ProtectedRoute>}
         />
-        <Route 
-          path="/ventes" 
-          element={<ProtectedRoute><VentesPage /></ProtectedRoute>} 
+        <Route
+          path="/ventes"
+          element={<ProtectedRoute><VentesPage /></ProtectedRoute>}
         />
-      </Routes>
+        </Routes>
 
-      <Footer />
+        <Footer />
+      </Suspense>
     </BrowserRouter>
   );
 }

@@ -65,7 +65,23 @@ const ProduitDetail = () => {
       ? `${produit.nom} - ${produit.categorie_nom || ''} à ${produit.prix?.toLocaleString('fr-FR')} DZD chez Epic Optique.`
       : undefined,
     image: imagePrincipale,
-    url: `https://epicoptique.com/produit/${id}`
+    url: `https://epicoptique.com/produit/${id}`,
+    jsonLd: produit ? {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: produit.nom,
+      image: imagePrincipale ? [imagePrincipale] : undefined,
+      category: produit.categorie_nom || undefined,
+      offers: {
+        '@type': 'Offer',
+        url: `https://epicoptique.com/produit/${id}`,
+        priceCurrency: 'DZD',
+        price: produit.prix,
+        availability: produit.quantite > 0
+          ? 'https://schema.org/InStock'
+          : 'https://schema.org/OutOfStock'
+      }
+    } : undefined
   });
 
   if (loading) return <p className="loading">Chargement...</p>;
