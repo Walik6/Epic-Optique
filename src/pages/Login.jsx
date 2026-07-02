@@ -19,6 +19,7 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
     const res = await fetch(`${API_URL}/login.php`, {
       method: 'POST',
+      credentials: 'include',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({username, password})
     });

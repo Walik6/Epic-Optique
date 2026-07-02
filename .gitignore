@@ -27,3 +27,4 @@ dist-ssr
 
 # Secrets PHP - ne jamais committer les identifiants de connexion
 Api/config.php
+*.bak

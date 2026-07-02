@@ -16,7 +16,7 @@ const DashboardAdmin = () => {
   const API_URL = import.meta.env.VITE_API_URL;
 
   const fetchCommandes = () => {
-    fetch(`${API_URL}/getCommandes.php?page=${page}&limit=${limit}`)
+    fetch(`${API_URL}/getCommandes.php?page=${page}&limit=${limit}`, { credentials: 'include' })
       .then(res => res.json())
       .then(setCommandes)
       .catch(err => console.error(err));
@@ -26,7 +26,7 @@ const DashboardAdmin = () => {
 
   const fetchCommandeDetail = async (id) => {
     try {
-      const res = await fetch(`${API_URL}/getCommandeDetails.php?id=${id}`);
+      const res = await fetch(`${API_URL}/getCommandeDetails.php?id=${id}`, { credentials: 'include' });
       const data = await res.json();
       setDetailCommande({ id, items: data });
     } catch {
@@ -40,6 +40,7 @@ const DashboardAdmin = () => {
   const updateStatut = async (id, statut) => {
     await fetch(`${API_URL}/updateStatut.php`, {
       method: 'POST',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id, statut })
     });
@@ -53,6 +54,7 @@ const DashboardAdmin = () => {
     try {
       const res = await fetch(`${API_URL}/deleteCommande.php`, {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id })
       });

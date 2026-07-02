@@ -1,19 +1,10 @@
 <?php
 // ========================================
-// HEADERS CORS - DOIT ÊTRE EN PREMIER
+// CORS + AUTH - DOIT ÊTRE EN PREMIER
 // ========================================
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization");
-header("Access-Control-Max-Age: 86400");
-
-// Gérer les requêtes OPTIONS (preflight)
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit;
-}
-
-header("Content-Type: application/json; charset=utf-8");
+require_once __DIR__ . '/auth.php';
+sendCorsHeaders('POST, GET');
+requireAdmin();
 
 // ========================================
 // VÉRIFICATIONS DE SÉCURITÉ

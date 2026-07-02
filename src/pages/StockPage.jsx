@@ -97,6 +97,7 @@ const StockPage = () => {
     try {
       const res = await fetch(`${API_URL}/deleteImage.php`, {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image_id: imageId })
       });
@@ -119,6 +120,7 @@ const StockPage = () => {
     try {
       const res = await fetch(`${API_URL}/setMainImage.php`, {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image_id: imageId })
       });
@@ -171,6 +173,7 @@ const StockPage = () => {
 
       const res = await fetch(url, {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
       });
@@ -203,6 +206,7 @@ const StockPage = () => {
 
             const uploadRes = await fetch(`${API_URL}/uploadImagesBase64.php`, {
               method: 'POST',
+              credentials: 'include',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
                 produit_id: produitId,
@@ -252,6 +256,7 @@ const StockPage = () => {
     try {
       const res = await fetch(`${API_URL}/deleteProduit.php`, {
         method:'POST',
+        credentials: 'include',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({id})
       });
@@ -273,6 +278,7 @@ const StockPage = () => {
     try {
       const res = await fetch(`${API_URL}/updateProduit.php`, {
         method:'POST',
+        credentials: 'include',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({ id, quantite })
       });

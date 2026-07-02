@@ -10,7 +10,7 @@ const DashboardOverview = () => {
   const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    fetch(`${API_URL}/getStats.php`)
+    fetch(`${API_URL}/getStats.php`, { credentials: 'include' })
       .then(res => res.json())
       .then(setStats);
   }, []);

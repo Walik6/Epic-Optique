@@ -77,6 +77,7 @@ const CaissePage = () => {
     if (panier.length === 0) return;
     const res = await fetch(`${API_URL}/validerVente.php`, {
       method: 'POST',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         total,

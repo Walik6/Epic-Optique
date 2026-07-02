@@ -1,6 +1,8 @@
 <?php
-header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: *");
+require_once __DIR__ . '/auth.php';
+sendCorsHeaders('GET');
+requireAdmin();
+
 require 'db.php';
 
 $page  = isset($_GET['page']) ? (int)$_GET['page'] : 1;

@@ -45,7 +45,7 @@ const VentesPage = () => {
     params.append('limit', itemsPerPage);
     if (filterDate !== 'all') params.append('filter', filterDate);
 
-    fetch(`${API_URL}/getVentes.php?${params.toString()}`)
+    fetch(`${API_URL}/getVentes.php?${params.toString()}`, { credentials: 'include' })
       .then(res => res.json())
       .then(data => {
         if (data.ventes) {
@@ -57,7 +57,7 @@ const VentesPage = () => {
   };
 
   const loadStats = () => {
-    fetch(`${API_URL}/getStatVentes.php`)
+    fetch(`${API_URL}/getStatVentes.php`, { credentials: 'include' })
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -69,7 +69,7 @@ const VentesPage = () => {
 
   const voirDetails = async (venteId) => {
     try {
-      const res = await fetch(`${API_URL}/getVentes.php?id=${venteId}`);
+      const res = await fetch(`${API_URL}/getVentes.php?id=${venteId}`, { credentials: 'include' });
       const data = await res.json();
       if (data.vente) {
         setSelectedVente(data.vente);
